@@ -17,7 +17,7 @@ namespace LiveSplit.UI.Components
 
         public string Description
         {
-            get { return ""; }
+            get { return "Displays the run timer, segment timer, and segment times for up to two comparisons."; }
         }
 
         public ComponentCategory Category
