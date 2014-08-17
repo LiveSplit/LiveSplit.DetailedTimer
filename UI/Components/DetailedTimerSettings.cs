@@ -269,9 +269,9 @@ namespace LiveSplit.UI.Components
                 version = Version.Parse(element["Version"].InnerText);
             else
                 version = new Version(1, 0, 0, 0);
-            Height = Single.Parse(element["Height"].InnerText);
-            Width = Single.Parse(element["Width"].InnerText);
-            SegmentTimerSizeRatio = Single.Parse(element["SegmentTimerSizeRatio"].InnerText);
+            Height = Single.Parse(element["Height"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture);
+            Width = Single.Parse(element["Width"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture);
+            SegmentTimerSizeRatio = Single.Parse(element["SegmentTimerSizeRatio"].InnerText.Replace(',', '.'),CultureInfo.InvariantCulture);
             TimerShowGradient = Boolean.Parse(element["TimerShowGradient"].InnerText);
             if (version >= new Version(1, 3))
                 OverrideTimerColors = Boolean.Parse(element["OverrideTimerColors"].InnerText);
@@ -291,7 +291,7 @@ namespace LiveSplit.UI.Components
                 SegmentTimesFont = GetFontFromElement(element["SegmentTimesFont"]);
                 SplitNameFont = GetFontFromElement(element["SplitNameFont"]);
                 DisplayIcon = Boolean.Parse(element["DisplayIcon"].InnerText);
-                IconSize = Single.Parse(element["IconSize"].InnerText);
+                IconSize = Single.Parse(element["IconSize"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture);
                 ShowSplitName = Boolean.Parse(element["ShowSplitName"].InnerText);
                 SplitNameColor = ParseColor(element["SplitNameColor"]);
                 BackgroundColor = ParseColor(element["BackgroundColor"]);
@@ -487,6 +487,13 @@ namespace LiveSplit.UI.Components
         {
             var element = document.CreateElement(name);
             element.InnerText = value.ToString();
+            return element;
+        }
+
+        private XmlElement ToElement(XmlDocument document, String name, float value)
+        {
+            var element = document.CreateElement(name);
+            element.InnerText = value.ToString(CultureInfo.InvariantCulture);
             return element;
         }
     }

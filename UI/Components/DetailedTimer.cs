@@ -25,7 +25,6 @@ namespace LiveSplit.UI.Components
         public SimpleLabel SegmentTime { get; set; }
         public SimpleLabel BestSegmentTime { get; set; }
         public SimpleLabel SplitName { get; set; }
-        public LiveSplitState FakeState { get; set; }
         public DetailedTimerSettings Settings { get; set; }
         public GraphicsCache Cache { get; set; }
 
@@ -155,7 +154,6 @@ namespace LiveSplit.UI.Components
                 SegmentTimer.Settings.TimerColor = Settings.SegmentTimerColor;
                 SegmentTimer.Settings.TimerAccuracy = Settings.SegmentTimerAccuracy;
 
-                FakeState = new LiveSplitState(state.Run, state.LayoutSettings, state.Settings);
                 var formatter = new SegmentTimesFormatter(Settings.SegmentTimesAccuracy);
 
                 if (state.CurrentSplitIndex >= 0)
@@ -409,6 +407,10 @@ namespace LiveSplit.UI.Components
             {
                 invalidator.Invalidate(0, 0, width, height);
             }
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
