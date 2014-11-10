@@ -51,8 +51,8 @@ namespace LiveSplit.UI.Components
             set { BackgroundGradient = (GradientType)Enum.Parse(typeof(GradientType), value); }
         }
 
-        public TimeAccuracy TimerAccuracy { get; set; }
-        public TimeAccuracy SegmentTimerAccuracy { get; set; }
+        public String TimerFormat { get; set; }
+        public String SegmentTimerFormat { get; set; }
         public TimeAccuracy SegmentTimesAccuracy { get; set; }
 
         public string SegmentLabelsFontString { get { return String.Format("{0} {1}", SegmentLabelsFont.FontFamily.Name, SegmentLabelsFont.Style); } }
@@ -87,8 +87,8 @@ namespace LiveSplit.UI.Components
             SegmentTimesColor = Color.FromArgb(255, 255, 255);
             SplitNameColor = Color.FromArgb(255, 255, 255);
 
-            TimerAccuracy = TimeAccuracy.Hundredths;
-            SegmentTimerAccuracy = TimeAccuracy.Hundredths;
+            TimerFormat = "1.23";
+            SegmentTimerFormat = "1.23";
             SegmentTimesAccuracy = TimeAccuracy.Hundredths;
 
             SegmentLabelsFont = new Font("Segoe UI", 7, FontStyle.Regular);
@@ -115,10 +115,10 @@ namespace LiveSplit.UI.Components
             btnSegmentLabelsColor.DataBindings.Add("BackColor", this, "SegmentLabelsColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSegmentTimesColor.DataBindings.Add("BackColor", this, "SegmentTimesColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSplitNameColor.DataBindings.Add("BackColor", this, "SplitNameColor", false, DataSourceUpdateMode.OnPropertyChanged);
-            btnTimerHundredths.CheckedChanged += btnTimerHundredths_CheckedChanged;
+            /*btnTimerHundredths.CheckedChanged += btnTimerHundredths_CheckedChanged;
             btnTimerSeconds.CheckedChanged += btnTimerSeconds_CheckedChanged;
             btnSegmentTimerSeconds.CheckedChanged += btnSegmentTimerSeconds_CheckedChanged;
-            btnSegmentTimerHundredths.CheckedChanged += btnSegmentTimerHundredths_CheckedChanged;
+            btnSegmentTimerHundredths.CheckedChanged += btnSegmentTimerHundredths_CheckedChanged;*/
             btnSegmentTimesSeconds.CheckedChanged += btnSegmentTimesSeconds_CheckedChanged;
             btnSegmentTimesHundredths.CheckedChanged += btnSegmentTimesHundredths_CheckedChanged;
             trkSegmentTimerRatio.DataBindings.Add("Value", this, "SegmentTimerSizeRatio", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -143,7 +143,22 @@ namespace LiveSplit.UI.Components
             chkDisplayIcon.CheckedChanged += chkDisplayIcon_CheckedChanged;
             chkSplitName.CheckedChanged += chkSplitName_CheckedChanged;
 
+            cmbTimerFormat.DataBindings.Add("SelectedItem", this, "TimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbTimerFormat.SelectedIndexChanged += cmbTimerFormat_SelectedIndexChanged;
+            cmbSegmentTimerFormat.DataBindings.Add("SelectedItem", this, "SegmentTimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbSegmentTimerFormat.SelectedIndexChanged += cmbSegmentTimerFormat_SelectedIndexChanged;
+
             this.Load += DetailedTimerSettings_Load;
+        }
+
+        void cmbSegmentTimerFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SegmentTimerFormat = cmbSegmentTimerFormat.SelectedItem.ToString();
+        }
+
+        void cmbTimerFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TimerFormat = cmbTimerFormat.SelectedItem.ToString();
         }
 
         void chkSplitName_CheckedChanged(object sender, EventArgs e)
@@ -196,7 +211,7 @@ namespace LiveSplit.UI.Components
             UpdateAccuracySegmentTimes();
         }
 
-        void btnSegmentTimerHundredths_CheckedChanged(object sender, EventArgs e)
+        /*void btnSegmentTimerHundredths_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAccuracySegmentTimer();
         }
@@ -233,7 +248,7 @@ namespace LiveSplit.UI.Components
                 SegmentTimerAccuracy = TimeAccuracy.Tenths;
             else
                 SegmentTimerAccuracy = TimeAccuracy.Hundredths;
-        }
+        }*/
         void UpdateAccuracySegmentTimes()
         {
             if (btnSegmentTimesSeconds.Checked)
@@ -282,8 +297,28 @@ namespace LiveSplit.UI.Components
             SegmentTimerColor = ParseColor(element["SegmentTimerColor"]);
             SegmentLabelsColor = ParseColor(element["SegmentLabelsColor"]);
             SegmentTimesColor = ParseColor(element["SegmentTimesColor"]);
-            TimerAccuracy = ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
-            SegmentTimerAccuracy = ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
+            if (version >= new Version(1, 5))
+            {
+                TimerFormat = element["TimerFormat"].InnerText;
+                SegmentTimerFormat = element["SegmentTimerFormat"].InnerText;
+            }
+            else
+            {
+                var timerAccuracy = ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
+                if (timerAccuracy == TimeAccuracy.Hundredths)
+                    TimerFormat = "1.23";
+                else if (timerAccuracy == TimeAccuracy.Tenths)
+                    TimerFormat = "1.2";
+                else
+                    TimerFormat = "1";
+                var segmentTimerAccuracy = ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
+                if (segmentTimerAccuracy == TimeAccuracy.Hundredths)
+                    SegmentTimerFormat = "1.23";
+                else if (segmentTimerAccuracy == TimeAccuracy.Tenths)
+                    SegmentTimerFormat = "1.2";
+                else
+                    SegmentTimerFormat = "1";
+            }
             SegmentTimesAccuracy = ParseEnum<TimeAccuracy>(element["SegmentTimesAccuracy"]);
             if (version >= new Version(1, 3))
             {
@@ -322,15 +357,15 @@ namespace LiveSplit.UI.Components
         public XmlNode GetSettings(XmlDocument document)
         {
             var parent = document.CreateElement("Settings");
-            parent.AppendChild(ToElement(document, "Version", "1.3"));
+            parent.AppendChild(ToElement(document, "Version", "1.5"));
             parent.AppendChild(ToElement(document, "Height", Height));
             parent.AppendChild(ToElement(document, "Width", Width));
             parent.AppendChild(ToElement(document, "SegmentTimerSizeRatio", SegmentTimerSizeRatio));
             parent.AppendChild(ToElement(document, "TimerShowGradient", TimerShowGradient));
             parent.AppendChild(ToElement(document, "OverrideTimerColors", OverrideTimerColors));
             parent.AppendChild(ToElement(document, "SegmentTimerShowGradient", SegmentTimerShowGradient));
-            parent.AppendChild(ToElement(document, "TimerAccuracy", TimerAccuracy));
-            parent.AppendChild(ToElement(document, "SegmentTimerAccuracy", SegmentTimerAccuracy));
+            parent.AppendChild(ToElement(document, "TimerFormat", TimerFormat));
+            parent.AppendChild(ToElement(document, "SegmentTimerFormat", SegmentTimerFormat));
             parent.AppendChild(ToElement(document, "SegmentTimesAccuracy", SegmentTimesAccuracy));
             parent.AppendChild(ToElement(document, TimerColor, "TimerColor"));
             parent.AppendChild(ToElement(document, SegmentTimerColor, "SegmentTimerColor"));
@@ -379,12 +414,12 @@ namespace LiveSplit.UI.Components
             cmbComparison2.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
             if (!cmbComparison2.Items.Contains(Comparison2))
                 cmbComparison2.Items.Add(Comparison2);
-            btnTimerHundredths.Checked = TimerAccuracy == TimeAccuracy.Hundredths;
+            /*btnTimerHundredths.Checked = TimerAccuracy == TimeAccuracy.Hundredths;
             btnTimerTenths.Checked = TimerAccuracy == TimeAccuracy.Tenths;
             btnTimerSeconds.Checked = TimerAccuracy == TimeAccuracy.Seconds;
             btnSegmentTimerHundredths.Checked = SegmentTimerAccuracy == TimeAccuracy.Hundredths;
             btnSegmentTimerTenths.Checked = SegmentTimerAccuracy == TimeAccuracy.Tenths;
-            btnSegmentTimerSeconds.Checked = SegmentTimerAccuracy == TimeAccuracy.Seconds;
+            btnSegmentTimerSeconds.Checked = SegmentTimerAccuracy == TimeAccuracy.Seconds;*/
             btnSegmentTimesHundredths.Checked = SegmentTimesAccuracy == TimeAccuracy.Hundredths;
             btnSegmentTimesTenths.Checked = SegmentTimesAccuracy == TimeAccuracy.Tenths;
             btnSegmentTimesSeconds.Checked = SegmentTimesAccuracy == TimeAccuracy.Seconds;

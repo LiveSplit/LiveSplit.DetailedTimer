@@ -148,11 +148,11 @@ namespace LiveSplit.UI.Components
                 InternalComponent.Settings.ShowGradient = Settings.TimerShowGradient;
                 InternalComponent.Settings.OverrideSplitColors = Settings.OverrideTimerColors;
                 InternalComponent.Settings.TimerColor = Settings.TimerColor;
-                InternalComponent.Settings.TimerAccuracy = Settings.TimerAccuracy;
+                InternalComponent.Settings.TimerFormat = Settings.TimerFormat;
                 SegmentTimer.Settings.ShowGradient = Settings.SegmentTimerShowGradient;
                 SegmentTimer.Settings.OverrideSplitColors = true;
                 SegmentTimer.Settings.TimerColor = Settings.SegmentTimerColor;
-                SegmentTimer.Settings.TimerAccuracy = Settings.SegmentTimerAccuracy;
+                SegmentTimer.Settings.TimerFormat = Settings.SegmentTimerFormat;
 
                 var formatter = new SegmentTimesFormatter(Settings.SegmentTimesAccuracy);
 
