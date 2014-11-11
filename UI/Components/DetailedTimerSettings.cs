@@ -65,6 +65,7 @@ namespace LiveSplit.UI.Components
         public String Comparison { get; set; }
         public String Comparison2 { get; set; }
         public bool HideComparison { get; set; }
+        public String TimingMethod { get; set; }
 
         public LayoutMode Mode { get; set; }
 
@@ -148,7 +149,15 @@ namespace LiveSplit.UI.Components
             cmbSegmentTimerFormat.DataBindings.Add("SelectedItem", this, "SegmentTimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbSegmentTimerFormat.SelectedIndexChanged += cmbSegmentTimerFormat_SelectedIndexChanged;
 
+            cmbTimingMethod.DataBindings.Add("SelectedItem", this, "TimingMethod", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbTimingMethod.SelectedIndexChanged += cmbTimingMethod_SelectedIndexChanged;
+
             this.Load += DetailedTimerSettings_Load;
+        }
+
+        void cmbTimingMethod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TimingMethod = cmbTimingMethod.SelectedItem.ToString();
         }
 
         void cmbSegmentTimerFormat_SelectedIndexChanged(object sender, EventArgs e)
@@ -301,9 +310,11 @@ namespace LiveSplit.UI.Components
             {
                 TimerFormat = element["TimerFormat"].InnerText;
                 SegmentTimerFormat = element["SegmentTimerFormat"].InnerText;
+                TimingMethod = element["TimingMethod"].InnerText;
             }
             else
             {
+                TimingMethod = "Current Timing Method";
                 var timerAccuracy = ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
                 if (timerAccuracy == TimeAccuracy.Hundredths)
                     TimerFormat = "1.23";
@@ -384,7 +395,7 @@ namespace LiveSplit.UI.Components
             parent.AppendChild(ToElement(document, "Comparison", Comparison));
             parent.AppendChild(ToElement(document, "Comparison2", Comparison2));
             parent.AppendChild(ToElement(document, "HideComparison", HideComparison));
-
+            parent.AppendChild(ToElement(document, "TimingMethod", TimingMethod));
             return parent;
         }
 

@@ -299,6 +299,12 @@ namespace LiveSplit.UI.Components
         {
             var lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
 
+            var timingMethod = state.CurrentTimingMethod;
+            if (Settings.TimingMethod == "Real Time")
+                timingMethod = TimingMethod.RealTime;
+            else if (Settings.TimingMethod == "Game Time")
+                timingMethod = TimingMethod.GameTime;
+
             var formatter = new SegmentTimesFormatter(Settings.SegmentTimesAccuracy);
 
             if (state.CurrentSplitIndex >= 0)
@@ -327,14 +333,14 @@ namespace LiveSplit.UI.Components
                 TimeSpan? segmentTime = null;
 
                 if (Comparison == BestSegmentsComparisonGenerator.ComparisonName)
-                    segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[state.CurrentTimingMethod];
+                    segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
                 else
                 {
                     if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
-                        segmentTime = state.Run[0].Comparisons[Comparison][state.CurrentTimingMethod];
+                        segmentTime = state.Run[0].Comparisons[Comparison][timingMethod];
                     else if (state.CurrentSplitIndex > 0)
-                        segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison][state.CurrentTimingMethod]
-                            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison][state.CurrentTimingMethod];
+                        segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison][timingMethod]
+                            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison][timingMethod];
                 }
 
                 LabelSegment.Text = ComparisonName + ":";
@@ -353,14 +359,14 @@ namespace LiveSplit.UI.Components
                 {
                     TimeSpan? bestSegmentTime = null;
                     if (Comparison2 == BestSegmentsComparisonGenerator.ComparisonName)
-                        bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[state.CurrentTimingMethod];
+                        bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
                     else
                     {
                     if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
-                        bestSegmentTime = state.Run[0].Comparisons[Comparison2][state.CurrentTimingMethod];
+                        bestSegmentTime = state.Run[0].Comparisons[Comparison2][timingMethod];
                     else if (state.CurrentSplitIndex > 0)
-                        bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison2][state.CurrentTimingMethod]
-                            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][state.CurrentTimingMethod];
+                        bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison2][timingMethod]
+                            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][timingMethod];
                     }
 
                     if (bestSegmentTime != null)
@@ -374,6 +380,8 @@ namespace LiveSplit.UI.Components
                     SplitName.Text = "";
             }
 
+            SegmentTimer.Settings.TimingMethod = Settings.TimingMethod;
+            InternalComponent.Settings.TimingMethod = Settings.TimingMethod;
             SegmentTimer.Update(null, state, width, height, mode);
             InternalComponent.Update(null, state, width, height, mode);
 
