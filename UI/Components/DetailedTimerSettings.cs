@@ -106,6 +106,7 @@ namespace LiveSplit.UI.Components
             Comparison = "Current Comparison";
             Comparison2 = "Best Segments";
             HideComparison = false;
+            TimingMethod = "Current Timing Method";
 
             chkShowGradientSegmentTimer.DataBindings.Add("Checked", this, "SegmentTimerShowGradient", false, DataSourceUpdateMode.OnPropertyChanged);
             chkShowGradientTimer.DataBindings.Add("Checked", this, "TimerShowGradient", false, DataSourceUpdateMode.OnPropertyChanged);
