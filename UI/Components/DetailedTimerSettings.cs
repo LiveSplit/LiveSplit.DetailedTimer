@@ -35,6 +35,9 @@ namespace LiveSplit.UI.Components
         public float IconSize { get; set; }
         public bool DisplayIcon { get; set; }
 
+        public float DecimalsSize { get; set; }
+        public float SegmentTimerDecimalsSize { get; set; }
+
         public Color TimerColor { get; set; }
         public Color SegmentTimerColor { get; set; }
         public Color SegmentLabelsColor { get; set; }
@@ -103,6 +106,9 @@ namespace LiveSplit.UI.Components
             IconSize = 40f;
             DisplayIcon = false;
 
+            DecimalsSize = 35f;
+            SegmentTimerDecimalsSize = 35f;
+
             Comparison = "Current Comparison";
             Comparison2 = "Best Segments";
             HideComparison = false;
@@ -139,6 +145,9 @@ namespace LiveSplit.UI.Components
             cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbComparison2.DataBindings.Add("SelectedItem", this, "Comparison2", false, DataSourceUpdateMode.OnPropertyChanged);
             chkHideComparison.DataBindings.Add("Checked", this, "HideComparison", false, DataSourceUpdateMode.OnPropertyChanged);
+
+            trkDecimalsSize.DataBindings.Add("Value", this, "DecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
+            trkSegmentDecimalsSize.DataBindings.Add("Value", this, "SegmentTimerDecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
 
             chkHideComparison.CheckedChanged += chkHideComparison_CheckedChanged;
             chkOverrideTimerColors.CheckedChanged += chkOverrideTimerColors_CheckedChanged;
@@ -312,6 +321,8 @@ namespace LiveSplit.UI.Components
                 TimerFormat = element["TimerFormat"].InnerText;
                 SegmentTimerFormat = element["SegmentTimerFormat"].InnerText;
                 TimingMethod = element["TimingMethod"].InnerText;
+                DecimalsSize = Single.Parse(element["DecimalsSize"].InnerText, CultureInfo.InvariantCulture);
+                SegmentTimerDecimalsSize = Single.Parse(element["SegmentTimerDecimalsSize"].InnerText, CultureInfo.InvariantCulture);
             }
             else
             {
@@ -330,6 +341,8 @@ namespace LiveSplit.UI.Components
                     SegmentTimerFormat = "1.2";
                 else
                     SegmentTimerFormat = "1";
+                DecimalsSize = 35f;
+                SegmentTimerDecimalsSize = 35f;
             }
             SegmentTimesAccuracy = ParseEnum<TimeAccuracy>(element["SegmentTimesAccuracy"]);
             if (version >= new Version(1, 3))
@@ -397,6 +410,8 @@ namespace LiveSplit.UI.Components
             parent.AppendChild(ToElement(document, "Comparison2", Comparison2));
             parent.AppendChild(ToElement(document, "HideComparison", HideComparison));
             parent.AppendChild(ToElement(document, "TimingMethod", TimingMethod));
+            parent.AppendChild(ToElement(document, "DecimalsSize", DecimalsSize));
+            parent.AppendChild(ToElement(document, "SegmentTimerDecimalsSize", SegmentTimerDecimalsSize));
             return parent;
         }
 
