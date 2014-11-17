@@ -88,6 +88,16 @@ namespace LiveSplit.UI.Components
             SegmentTime = new SimpleLabel();
             BestSegmentTime = new SimpleLabel();
             SplitName = new SimpleLabel();
+            state.ComparisonRenamed += state_ComparisonRenamed;
+        }
+
+        void state_ComparisonRenamed(object sender, EventArgs e)
+        {
+            var args = (RenameEventArgs)e;
+            if (Settings.Comparison == args.OldName)
+                Settings.Comparison = args.NewName;
+            if (Settings.Comparison2 == args.OldName)
+                Settings.Comparison2 = args.NewName;
         }
 
         public void DrawGeneral(Graphics g, LiveSplitState state, float width, float height)
@@ -286,16 +296,6 @@ namespace LiveSplit.UI.Components
         {
             return Settings.GetSettings(document);
         }
-
-
-        public void RenameComparison(string oldName, string newName)
-        {
-            if (Settings.Comparison == oldName)
-                Settings.Comparison = newName;
-            if (Settings.Comparison2 == oldName)
-                Settings.Comparison2 = newName;
-        }
-
 
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
