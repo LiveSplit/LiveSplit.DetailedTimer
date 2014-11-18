@@ -95,9 +95,15 @@ namespace LiveSplit.UI.Components
         {
             var args = (RenameEventArgs)e;
             if (Settings.Comparison == args.OldName)
+            {
                 Settings.Comparison = args.NewName;
+                ((LiveSplitState)sender).Layout.HasChanged = true;
+            }
             if (Settings.Comparison2 == args.OldName)
+            {
                 Settings.Comparison2 = args.NewName;
+                ((LiveSplitState)sender).Layout.HasChanged = true;
+            }
         }
 
         public void DrawGeneral(Graphics g, LiveSplitState state, float width, float height)
