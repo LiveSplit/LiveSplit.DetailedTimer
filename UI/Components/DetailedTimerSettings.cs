@@ -123,10 +123,6 @@ namespace LiveSplit.UI.Components
             btnSegmentLabelsColor.DataBindings.Add("BackColor", this, "SegmentLabelsColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSegmentTimesColor.DataBindings.Add("BackColor", this, "SegmentTimesColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSplitNameColor.DataBindings.Add("BackColor", this, "SplitNameColor", false, DataSourceUpdateMode.OnPropertyChanged);
-            /*btnTimerHundredths.CheckedChanged += btnTimerHundredths_CheckedChanged;
-            btnTimerSeconds.CheckedChanged += btnTimerSeconds_CheckedChanged;
-            btnSegmentTimerSeconds.CheckedChanged += btnSegmentTimerSeconds_CheckedChanged;
-            btnSegmentTimerHundredths.CheckedChanged += btnSegmentTimerHundredths_CheckedChanged;*/
             btnSegmentTimesSeconds.CheckedChanged += btnSegmentTimesSeconds_CheckedChanged;
             btnSegmentTimesHundredths.CheckedChanged += btnSegmentTimesHundredths_CheckedChanged;
             trkSegmentTimerRatio.DataBindings.Add("Value", this, "SegmentTimerSizeRatio", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -230,44 +226,6 @@ namespace LiveSplit.UI.Components
             UpdateAccuracySegmentTimes();
         }
 
-        /*void btnSegmentTimerHundredths_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateAccuracySegmentTimer();
-        }
-
-        void btnSegmentTimerSeconds_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateAccuracySegmentTimer();
-        }
-
-        void btnTimerSeconds_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateAccuracyTimer();
-        }
-
-        void btnTimerHundredths_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateAccuracyTimer();
-        }
-
-        void UpdateAccuracyTimer()
-        {
-            if (btnTimerSeconds.Checked)
-                TimerAccuracy = TimeAccuracy.Seconds;
-            else if (btnTimerTenths.Checked)
-                TimerAccuracy = TimeAccuracy.Tenths;
-            else
-                TimerAccuracy = TimeAccuracy.Hundredths;
-        }
-        void UpdateAccuracySegmentTimer()
-        {
-            if (btnSegmentTimerSeconds.Checked)
-                SegmentTimerAccuracy = TimeAccuracy.Seconds;
-            else if (btnSegmentTimerTenths.Checked)
-                SegmentTimerAccuracy = TimeAccuracy.Tenths;
-            else
-                SegmentTimerAccuracy = TimeAccuracy.Hundredths;
-        }*/
         void UpdateAccuracySegmentTimes()
         {
             if (btnSegmentTimesSeconds.Checked)
@@ -441,12 +399,6 @@ namespace LiveSplit.UI.Components
             cmbComparison2.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
             if (!cmbComparison2.Items.Contains(Comparison2))
                 cmbComparison2.Items.Add(Comparison2);
-            /*btnTimerHundredths.Checked = TimerAccuracy == TimeAccuracy.Hundredths;
-            btnTimerTenths.Checked = TimerAccuracy == TimeAccuracy.Tenths;
-            btnTimerSeconds.Checked = TimerAccuracy == TimeAccuracy.Seconds;
-            btnSegmentTimerHundredths.Checked = SegmentTimerAccuracy == TimeAccuracy.Hundredths;
-            btnSegmentTimerTenths.Checked = SegmentTimerAccuracy == TimeAccuracy.Tenths;
-            btnSegmentTimerSeconds.Checked = SegmentTimerAccuracy == TimeAccuracy.Seconds;*/
             btnSegmentTimesHundredths.Checked = SegmentTimesAccuracy == TimeAccuracy.Hundredths;
             btnSegmentTimesTenths.Checked = SegmentTimesAccuracy == TimeAccuracy.Tenths;
             btnSegmentTimesSeconds.Checked = SegmentTimesAccuracy == TimeAccuracy.Seconds;
@@ -473,8 +425,6 @@ namespace LiveSplit.UI.Components
         {
             var dialog = new FontDialog();
             dialog.Font = previousFont;
-            /*dialog.MaxSize = (int)previousFont.SizeInPoints;
-            dialog.MinSize = (int)previousFont.SizeInPoints;*/
             dialog.MinSize = minSize;
             dialog.MaxSize = maxSize;
             try
