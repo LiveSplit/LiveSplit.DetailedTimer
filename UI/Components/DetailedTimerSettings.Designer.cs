@@ -49,6 +49,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkShowGradientTimer = new System.Windows.Forms.CheckBox();
             this.cmbTimerFormat = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.trkDecimalsSize = new System.Windows.Forms.TrackBar();
             this.lblSize = new System.Windows.Forms.Label();
             this.trkSize = new System.Windows.Forms.TrackBar();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -58,6 +60,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbSegmentTimerFormat = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.trkSegmentDecimalsSize = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -95,10 +99,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.cmbTimingMethod = new System.Windows.Forms.ComboBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.trkDecimalsSize = new System.Windows.Forms.TrackBar();
-            this.trkSegmentDecimalsSize = new System.Windows.Forms.TrackBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -108,9 +108,11 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkDecimalsSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkSize)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSegmentDecimalsSize)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -121,8 +123,6 @@
             this.tableLayoutPanel11.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkDecimalsSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkSegmentDecimalsSize)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -225,7 +225,7 @@
             this.groupBox9.Location = new System.Drawing.Point(3, 784);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(439, 78);
-            this.groupBox9.TabIndex = 10;
+            this.groupBox9.TabIndex = 11;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Icon";
             // 
@@ -289,7 +289,7 @@
             this.trkSegmentTimerRatio.Minimum = 10;
             this.trkSegmentTimerRatio.Name = "trkSegmentTimerRatio";
             this.trkSegmentTimerRatio.Size = new System.Drawing.Size(286, 23);
-            this.trkSegmentTimerRatio.TabIndex = 5;
+            this.trkSegmentTimerRatio.TabIndex = 6;
             this.trkSegmentTimerRatio.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trkSegmentTimerRatio.Value = 10;
             // 
@@ -301,7 +301,7 @@
             this.groupBox1.Location = new System.Drawing.Point(3, 231);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(439, 189);
-            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Timer";
             // 
@@ -433,6 +433,28 @@
             this.cmbTimerFormat.Size = new System.Drawing.Size(281, 21);
             this.cmbTimerFormat.TabIndex = 4;
             // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 148);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(140, 13);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Decimals Font Size:";
+            // 
+            // trkDecimalsSize
+            // 
+            this.trkDecimalsSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.trkDecimalsSize.Location = new System.Drawing.Point(149, 143);
+            this.trkDecimalsSize.Maximum = 50;
+            this.trkDecimalsSize.Minimum = 10;
+            this.trkDecimalsSize.Name = "trkDecimalsSize";
+            this.trkDecimalsSize.Size = new System.Drawing.Size(281, 24);
+            this.trkDecimalsSize.TabIndex = 6;
+            this.trkDecimalsSize.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trkDecimalsSize.Value = 10;
+            // 
             // lblSize
             // 
             this.lblSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -450,7 +472,7 @@
             this.trkSize.Location = new System.Drawing.Point(156, 173);
             this.trkSize.Name = "trkSize";
             this.trkSize.Size = new System.Drawing.Size(286, 23);
-            this.trkSize.TabIndex = 4;
+            this.trkSize.TabIndex = 5;
             this.trkSize.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
             // groupBox3
@@ -461,7 +483,7 @@
             this.groupBox3.Location = new System.Drawing.Point(3, 426);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(439, 135);
-            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Segment Timer";
             // 
@@ -552,6 +574,28 @@
             this.cmbSegmentTimerFormat.Size = new System.Drawing.Size(281, 21);
             this.cmbSegmentTimerFormat.TabIndex = 3;
             // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 95);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(140, 13);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "Decimals Font Size:";
+            // 
+            // trkSegmentDecimalsSize
+            // 
+            this.trkSegmentDecimalsSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.trkSegmentDecimalsSize.Location = new System.Drawing.Point(149, 90);
+            this.trkSegmentDecimalsSize.Maximum = 50;
+            this.trkSegmentDecimalsSize.Minimum = 10;
+            this.trkSegmentDecimalsSize.Name = "trkSegmentDecimalsSize";
+            this.trkSegmentDecimalsSize.Size = new System.Drawing.Size(281, 23);
+            this.trkSegmentDecimalsSize.TabIndex = 5;
+            this.trkSegmentDecimalsSize.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trkSegmentDecimalsSize.Value = 10;
+            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -570,7 +614,7 @@
             this.groupBox7.Location = new System.Drawing.Point(3, 567);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(439, 77);
-            this.groupBox7.TabIndex = 8;
+            this.groupBox7.TabIndex = 9;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Segment Labels";
             // 
@@ -655,7 +699,7 @@
             this.groupBox8.Location = new System.Drawing.Point(3, 650);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(439, 128);
-            this.groupBox8.TabIndex = 9;
+            this.groupBox8.TabIndex = 10;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Segment Times";
             // 
@@ -808,7 +852,7 @@
             this.groupBox10.Location = new System.Drawing.Point(3, 868);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(439, 106);
-            this.groupBox10.TabIndex = 11;
+            this.groupBox10.TabIndex = 12;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Split Name";
             // 
@@ -908,7 +952,7 @@
             this.groupBox11.Location = new System.Drawing.Point(3, 61);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(439, 106);
-            this.groupBox11.TabIndex = 3;
+            this.groupBox11.TabIndex = 4;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Segment Time Comparisons";
             // 
@@ -1007,51 +1051,7 @@
             this.cmbTimingMethod.Location = new System.Drawing.Point(156, 33);
             this.cmbTimingMethod.Name = "cmbTimingMethod";
             this.cmbTimingMethod.Size = new System.Drawing.Size(286, 21);
-            this.cmbTimingMethod.TabIndex = 24;
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 148);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(140, 13);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "Decimals Font Size:";
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 95);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(140, 13);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "Decimals Font Size:";
-            // 
-            // trkDecimalsSize
-            // 
-            this.trkDecimalsSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trkDecimalsSize.Location = new System.Drawing.Point(149, 143);
-            this.trkDecimalsSize.Maximum = 50;
-            this.trkDecimalsSize.Minimum = 10;
-            this.trkDecimalsSize.Name = "trkDecimalsSize";
-            this.trkDecimalsSize.Size = new System.Drawing.Size(281, 24);
-            this.trkDecimalsSize.TabIndex = 6;
-            this.trkDecimalsSize.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trkDecimalsSize.Value = 10;
-            // 
-            // trkSegmentDecimalsSize
-            // 
-            this.trkSegmentDecimalsSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trkSegmentDecimalsSize.Location = new System.Drawing.Point(149, 90);
-            this.trkSegmentDecimalsSize.Maximum = 50;
-            this.trkSegmentDecimalsSize.Minimum = 10;
-            this.trkSegmentDecimalsSize.Name = "trkSegmentDecimalsSize";
-            this.trkSegmentDecimalsSize.Size = new System.Drawing.Size(281, 23);
-            this.trkSegmentDecimalsSize.TabIndex = 5;
-            this.trkSegmentDecimalsSize.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trkSegmentDecimalsSize.Value = 10;
+            this.cmbTimingMethod.TabIndex = 3;
             // 
             // DetailedTimerSettings
             // 
@@ -1074,10 +1074,12 @@
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkDecimalsSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkSize)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSegmentDecimalsSize)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
@@ -1093,8 +1095,6 @@
             this.groupBox11.ResumeLayout(false);
             this.tableLayoutPanel12.ResumeLayout(false);
             this.tableLayoutPanel12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkDecimalsSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkSegmentDecimalsSize)).EndInit();
             this.ResumeLayout(false);
 
         }
