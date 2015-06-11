@@ -236,140 +236,107 @@ namespace LiveSplit.UI.Components
                 SegmentTimesAccuracy = TimeAccuracy.Hundredths;
         }
 
-        private T ParseEnum<T>(XmlElement element)
-        {
-            return (T)Enum.Parse(typeof(T), element.InnerText);
-        }
-
-        private Color ParseColor(XmlElement colorElement)
-        {
-            return Color.FromArgb(Int32.Parse(colorElement.InnerText, NumberStyles.HexNumber));
-        }
-
-        private XmlElement ToElement(XmlDocument document, Color color, string name)
-        {
-            var element = document.CreateElement(name);
-            element.InnerText = color.ToArgb().ToString("X8");
-            return element;
-        }
-
         public void SetSettings(XmlNode node)
         {
             var element = (XmlElement)node;
-            Version version;
-            if (element["Version"] != null)
-                version = Version.Parse(element["Version"].InnerText);
-            else
-                version = new Version(1, 0, 0, 0);
-            Height = Single.Parse(element["Height"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture);
-            Width = Single.Parse(element["Width"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture);
-            SegmentTimerSizeRatio = Single.Parse(element["SegmentTimerSizeRatio"].InnerText.Replace(',', '.'),CultureInfo.InvariantCulture);
-            TimerShowGradient = Boolean.Parse(element["TimerShowGradient"].InnerText);
+            Version version = SettingsHelper.ParseVersion(element["Version"]);
+
+            Height = SettingsHelper.ParseFloat(element["Height"]);
+            Width = SettingsHelper.ParseFloat(element["Width"]);
+            SegmentTimerSizeRatio = SettingsHelper.ParseFloat(element["SegmentTimerSizeRatio"]);
+            TimerShowGradient = SettingsHelper.ParseBool(element["TimerShowGradient"]);
+            SegmentTimerShowGradient = SettingsHelper.ParseBool(element["SegmentTimerShowGradient"]);
+            TimerColor = SettingsHelper.ParseColor(element["TimerColor"]);
+            SegmentTimerColor = SettingsHelper.ParseColor(element["SegmentTimerColor"]);
+            SegmentLabelsColor = SettingsHelper.ParseColor(element["SegmentLabelsColor"]);
+            SegmentTimesColor = SettingsHelper.ParseColor(element["SegmentTimesColor"]);
+            TimingMethod = SettingsHelper.ParseString(element["TimingMethod"], "Current Timing Method");
+            DecimalsSize = SettingsHelper.ParseFloat(element["DecimalsSize"], 35f);
+            SegmentTimerDecimalsSize = SettingsHelper.ParseFloat(element["SegmentTimerDecimalsSize"], 35f);
+            DisplayIcon = SettingsHelper.ParseBool(element["DisplayIcon"], false);
+            IconSize = SettingsHelper.ParseFloat(element["IconSize"], 40f);
+            ShowSplitName = SettingsHelper.ParseBool(element["ShowSplitName"], false);
+            SplitNameColor = SettingsHelper.ParseColor(element["SplitNameColor"], Color.FromArgb(255, 255, 255));
+            BackgroundColor = SettingsHelper.ParseColor(element["BackgroundColor"], Color.Transparent);
+            BackgroundColor2 = SettingsHelper.ParseColor(element["BackgroundColor2"], Color.Transparent);
+            GradientString = SettingsHelper.ParseString(element["BackgroundGradient"], GradientType.Plain.ToString());
+            Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
+            Comparison2 = SettingsHelper.ParseString(element["Comparison2"], "Best Segments");
+            HideComparison = SettingsHelper.ParseBool(element["HideComparison"], false);
+            SegmentTimesAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimesAccuracy"]);
+
             if (version >= new Version(1, 3))
-                OverrideTimerColors = Boolean.Parse(element["OverrideTimerColors"].InnerText);
+            {
+                OverrideTimerColors = SettingsHelper.ParseBool(element["OverrideTimerColors"]);
+                SegmentLabelsFont = SettingsHelper.GetFontFromElement(element["SegmentLabelsFont"]);
+                SegmentTimesFont = SettingsHelper.GetFontFromElement(element["SegmentTimesFont"]);
+                SplitNameFont = SettingsHelper.GetFontFromElement(element["SplitNameFont"]);
+            }
             else
-                OverrideTimerColors = !Boolean.Parse(element["TimerUseSplitColors"].InnerText);
-            SegmentTimerShowGradient = Boolean.Parse(element["SegmentTimerShowGradient"].InnerText);
-            TimerColor = ParseColor(element["TimerColor"]);
-            SegmentTimerColor = ParseColor(element["SegmentTimerColor"]);
-            SegmentLabelsColor = ParseColor(element["SegmentLabelsColor"]);
-            SegmentTimesColor = ParseColor(element["SegmentTimesColor"]);
+            {
+                OverrideTimerColors = !SettingsHelper.ParseBool(element["TimerUseSplitColors"]);
+                SegmentLabelsFont = new Font("Segoe UI", 7, FontStyle.Regular);
+                SegmentTimesFont = new Font("Segoe UI", 7, FontStyle.Bold);
+                SplitNameFont = new Font("Segoe UI", 8, FontStyle.Regular);
+            }
+
             if (version >= new Version(1, 5))
             {
                 TimerFormat = element["TimerFormat"].InnerText;
                 SegmentTimerFormat = element["SegmentTimerFormat"].InnerText;
-                TimingMethod = element["TimingMethod"].InnerText;
-                DecimalsSize = Single.Parse(element["DecimalsSize"].InnerText, CultureInfo.InvariantCulture);
-                SegmentTimerDecimalsSize = Single.Parse(element["SegmentTimerDecimalsSize"].InnerText, CultureInfo.InvariantCulture);
             }
             else
             {
-                TimingMethod = "Current Timing Method";
-                var timerAccuracy = ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
+                var timerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
                 if (timerAccuracy == TimeAccuracy.Hundredths)
                     TimerFormat = "1.23";
                 else if (timerAccuracy == TimeAccuracy.Tenths)
                     TimerFormat = "1.2";
                 else
                     TimerFormat = "1";
-                var segmentTimerAccuracy = ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
+                var segmentTimerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
                 if (segmentTimerAccuracy == TimeAccuracy.Hundredths)
                     SegmentTimerFormat = "1.23";
                 else if (segmentTimerAccuracy == TimeAccuracy.Tenths)
                     SegmentTimerFormat = "1.2";
                 else
                     SegmentTimerFormat = "1";
-                DecimalsSize = 35f;
-                SegmentTimerDecimalsSize = 35f;
-            }
-            SegmentTimesAccuracy = ParseEnum<TimeAccuracy>(element["SegmentTimesAccuracy"]);
-            if (version >= new Version(1, 3))
-            {
-                SegmentLabelsFont = GetFontFromElement(element["SegmentLabelsFont"]);
-                SegmentTimesFont = GetFontFromElement(element["SegmentTimesFont"]);
-                SplitNameFont = GetFontFromElement(element["SplitNameFont"]);
-                DisplayIcon = Boolean.Parse(element["DisplayIcon"].InnerText);
-                IconSize = Single.Parse(element["IconSize"].InnerText.Replace(',', '.'), CultureInfo.InvariantCulture);
-                ShowSplitName = Boolean.Parse(element["ShowSplitName"].InnerText);
-                SplitNameColor = ParseColor(element["SplitNameColor"]);
-                BackgroundColor = ParseColor(element["BackgroundColor"]);
-                BackgroundColor2 = ParseColor(element["BackgroundColor2"]);
-                GradientString = element["BackgroundGradient"].InnerText;
-                Comparison = element["Comparison"].InnerText;
-                Comparison2 = element["Comparison2"].InnerText;
-                HideComparison = Boolean.Parse(element["HideComparison"].InnerText);
-            }
-            else
-            {
-                SegmentLabelsFont = new Font("Segoe UI", 7, FontStyle.Regular);
-                SegmentTimesFont = new Font("Segoe UI", 7, FontStyle.Bold);
-                SplitNameFont = new Font("Segoe UI", 8, FontStyle.Regular);
-                DisplayIcon = false;
-                IconSize = 40f;
-                ShowSplitName = false;
-                SplitNameColor = Color.FromArgb(255, 255, 255);
-                BackgroundColor = Color.Transparent;
-                BackgroundColor2 = Color.Transparent;
-                BackgroundGradient = GradientType.Plain;
-                Comparison = "Current Comparison";
-                Comparison2 = "Best Segments";
-                HideComparison = false;
             }
         }
 
         public XmlNode GetSettings(XmlDocument document)
         {
             var parent = document.CreateElement("Settings");
-            parent.AppendChild(ToElement(document, "Version", "1.5"));
-            parent.AppendChild(ToElement(document, "Height", Height));
-            parent.AppendChild(ToElement(document, "Width", Width));
-            parent.AppendChild(ToElement(document, "SegmentTimerSizeRatio", SegmentTimerSizeRatio));
-            parent.AppendChild(ToElement(document, "TimerShowGradient", TimerShowGradient));
-            parent.AppendChild(ToElement(document, "OverrideTimerColors", OverrideTimerColors));
-            parent.AppendChild(ToElement(document, "SegmentTimerShowGradient", SegmentTimerShowGradient));
-            parent.AppendChild(ToElement(document, "TimerFormat", TimerFormat));
-            parent.AppendChild(ToElement(document, "SegmentTimerFormat", SegmentTimerFormat));
-            parent.AppendChild(ToElement(document, "SegmentTimesAccuracy", SegmentTimesAccuracy));
-            parent.AppendChild(ToElement(document, TimerColor, "TimerColor"));
-            parent.AppendChild(ToElement(document, SegmentTimerColor, "SegmentTimerColor"));
-            parent.AppendChild(ToElement(document, SegmentLabelsColor, "SegmentLabelsColor"));
-            parent.AppendChild(ToElement(document, SegmentTimesColor, "SegmentTimesColor"));
-            parent.AppendChild(CreateFontElement(document, "SegmentLabelsFont", SegmentLabelsFont));
-            parent.AppendChild(CreateFontElement(document, "SegmentTimesFont", SegmentTimesFont));
-            parent.AppendChild(CreateFontElement(document, "SplitNameFont", SplitNameFont));
-            parent.AppendChild(ToElement(document, "DisplayIcon", DisplayIcon));
-            parent.AppendChild(ToElement(document, "IconSize", IconSize));
-            parent.AppendChild(ToElement(document, "ShowSplitName", ShowSplitName));
-            parent.AppendChild(ToElement(document, SplitNameColor, "SplitNameColor"));
-            parent.AppendChild(ToElement(document, BackgroundColor, "BackgroundColor"));
-            parent.AppendChild(ToElement(document, BackgroundColor2, "BackgroundColor2"));
-            parent.AppendChild(ToElement(document, "BackgroundGradient", BackgroundGradient));
-            parent.AppendChild(ToElement(document, "Comparison", Comparison));
-            parent.AppendChild(ToElement(document, "Comparison2", Comparison2));
-            parent.AppendChild(ToElement(document, "HideComparison", HideComparison));
-            parent.AppendChild(ToElement(document, "TimingMethod", TimingMethod));
-            parent.AppendChild(ToElement(document, "DecimalsSize", DecimalsSize));
-            parent.AppendChild(ToElement(document, "SegmentTimerDecimalsSize", SegmentTimerDecimalsSize));
+            parent.AppendChild(SettingsHelper.ToElement(document, "Version", "1.5"));
+            parent.AppendChild(SettingsHelper.ToElement(document, "Height", Height));
+            parent.AppendChild(SettingsHelper.ToElement(document, "Width", Width));
+            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerSizeRatio", SegmentTimerSizeRatio));
+            parent.AppendChild(SettingsHelper.ToElement(document, "TimerShowGradient", TimerShowGradient));
+            parent.AppendChild(SettingsHelper.ToElement(document, "OverrideTimerColors", OverrideTimerColors));
+            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerShowGradient", SegmentTimerShowGradient));
+            parent.AppendChild(SettingsHelper.ToElement(document, "TimerFormat", TimerFormat));
+            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerFormat", SegmentTimerFormat));
+            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimesAccuracy", SegmentTimesAccuracy));
+            parent.AppendChild(SettingsHelper.ToElement(document, TimerColor, "TimerColor"));
+            parent.AppendChild(SettingsHelper.ToElement(document, SegmentTimerColor, "SegmentTimerColor"));
+            parent.AppendChild(SettingsHelper.ToElement(document, SegmentLabelsColor, "SegmentLabelsColor"));
+            parent.AppendChild(SettingsHelper.ToElement(document, SegmentTimesColor, "SegmentTimesColor"));
+            parent.AppendChild(SettingsHelper.CreateFontElement(document, "SegmentLabelsFont", SegmentLabelsFont));
+            parent.AppendChild(SettingsHelper.CreateFontElement(document, "SegmentTimesFont", SegmentTimesFont));
+            parent.AppendChild(SettingsHelper.CreateFontElement(document, "SplitNameFont", SplitNameFont));
+            parent.AppendChild(SettingsHelper.ToElement(document, "DisplayIcon", DisplayIcon));
+            parent.AppendChild(SettingsHelper.ToElement(document, "IconSize", IconSize));
+            parent.AppendChild(SettingsHelper.ToElement(document, "ShowSplitName", ShowSplitName));
+            parent.AppendChild(SettingsHelper.ToElement(document, SplitNameColor, "SplitNameColor"));
+            parent.AppendChild(SettingsHelper.ToElement(document, BackgroundColor, "BackgroundColor"));
+            parent.AppendChild(SettingsHelper.ToElement(document, BackgroundColor2, "BackgroundColor2"));
+            parent.AppendChild(SettingsHelper.ToElement(document, "BackgroundGradient", BackgroundGradient));
+            parent.AppendChild(SettingsHelper.ToElement(document, "Comparison", Comparison));
+            parent.AppendChild(SettingsHelper.ToElement(document, "Comparison2", Comparison2));
+            parent.AppendChild(SettingsHelper.ToElement(document, "HideComparison", HideComparison));
+            parent.AppendChild(SettingsHelper.ToElement(document, "TimingMethod", TimingMethod));
+            parent.AppendChild(SettingsHelper.ToElement(document, "DecimalsSize", DecimalsSize));
+            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerDecimalsSize", SegmentTimerDecimalsSize));
             return parent;
         }
 
@@ -421,92 +388,21 @@ namespace LiveSplit.UI.Components
             }
         }
 
-        private Font ChooseFont(Font previousFont, int minSize, int maxSize)
-        {
-            var dialog = new FontDialog();
-            dialog.Font = previousFont;
-            dialog.MinSize = minSize;
-            dialog.MaxSize = maxSize;
-            try
-            {
-                var result = dialog.ShowDialog(this);
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    return dialog.Font;
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-
-                MessageBox.Show("This font is not supported.", "Font Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            return previousFont;
-        }
-
-        private Font GetFontFromElement(XmlElement element)
-        {
-            if (!element.IsEmpty)
-            {
-                var bf = new BinaryFormatter();
-
-                var base64String = element.InnerText;
-                var data = Convert.FromBase64String(base64String);
-                var ms = new MemoryStream(data);
-                return (Font)bf.Deserialize(ms);
-            }
-            return null;
-        }
-
-        private XmlElement CreateFontElement(XmlDocument document, String elementName, Font font)
-        {
-            var element = document.CreateElement(elementName);
-
-            if (font != null)
-            {
-                using (var ms = new MemoryStream())
-                {
-                    var bf = new BinaryFormatter();
-
-                    bf.Serialize(ms, font);
-                    var data = ms.ToArray();
-                    var cdata = document.CreateCDataSection(Convert.ToBase64String(data));
-                    element.InnerXml = cdata.OuterXml;
-                }
-            }
-
-            return element;
-        }
-
         private void btnSegmentLabelsFont_Click(object sender, EventArgs e)
         {
-            SegmentLabelsFont = ChooseFont(SegmentLabelsFont, 7, 20);
+            SegmentLabelsFont = SettingsHelper.ChooseFont(this, SegmentLabelsFont, 7, 20);
             lblSegmentLabelsFont.Text = SegmentLabelsFontString;
         }
 
         private void btnSegmentTimesFont_Click(object sender, EventArgs e)
         {
-            SegmentTimesFont = ChooseFont(SegmentTimesFont, 7, 20);
+            SegmentTimesFont = SettingsHelper.ChooseFont(this, SegmentTimesFont, 7, 20);
             lblSegmentTimesFont.Text = SegmentTimesFontString;
         }
         private void btnSplitNameFont_Click(object sender, EventArgs e)
         {
-            SplitNameFont = ChooseFont(SplitNameFont, 7, 20);
+            SplitNameFont = SettingsHelper.ChooseFont(this, SplitNameFont, 7, 20);
             lblSplitNameFont.Text = SplitNameFontString;
-        }
-
-        private XmlElement ToElement<T>(XmlDocument document, String name, T value)
-        {
-            var element = document.CreateElement(name);
-            element.InnerText = value.ToString();
-            return element;
-        }
-
-        private XmlElement ToElement(XmlDocument document, String name, float value)
-        {
-            var element = document.CreateElement(name);
-            element.InnerText = value.ToString(CultureInfo.InvariantCulture);
-            return element;
         }
     }
 }
