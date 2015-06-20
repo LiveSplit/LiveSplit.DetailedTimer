@@ -216,6 +216,7 @@
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(228, 21);
             this.cmbGradientType.TabIndex = 2;
+            this.cmbGradientType.SelectedIndexChanged += new System.EventHandler(cmbGradientType_SelectedIndexChanged);
             // 
             // groupBox9
             // 
@@ -257,6 +258,7 @@
             this.chkDisplayIcon.TabIndex = 0;
             this.chkDisplayIcon.Text = "Display Icon";
             this.chkDisplayIcon.UseVisualStyleBackColor = true;
+            this.chkDisplayIcon.CheckedChanged += new System.EventHandler(chkDisplayIcon_CheckedChanged);
             // 
             // label7
             // 
@@ -378,6 +380,7 @@
             this.chkOverrideTimerColors.TabIndex = 0;
             this.chkOverrideTimerColors.Text = "Override Layout Settings";
             this.chkOverrideTimerColors.UseVisualStyleBackColor = true;
+            this.chkOverrideTimerColors.CheckedChanged += new System.EventHandler(chkOverrideTimerColors_CheckedChanged);
             // 
             // btnTimerColor
             // 
@@ -432,6 +435,7 @@
             this.cmbTimerFormat.Name = "cmbTimerFormat";
             this.cmbTimerFormat.Size = new System.Drawing.Size(281, 21);
             this.cmbTimerFormat.TabIndex = 4;
+            this.cmbTimerFormat.SelectedIndexChanged += new System.EventHandler(cmbTimerFormat_SelectedIndexChanged);
             // 
             // label17
             // 
@@ -573,6 +577,7 @@
             this.cmbSegmentTimerFormat.Name = "cmbSegmentTimerFormat";
             this.cmbSegmentTimerFormat.Size = new System.Drawing.Size(281, 21);
             this.cmbSegmentTimerFormat.TabIndex = 3;
+            this.cmbSegmentTimerFormat.SelectedIndexChanged += new System.EventHandler(cmbSegmentTimerFormat_SelectedIndexChanged);
             // 
             // label18
             // 
@@ -776,6 +781,7 @@
             this.btnSegmentTimesHundredths.TabStop = true;
             this.btnSegmentTimesHundredths.Text = "Hundredths";
             this.btnSegmentTimesHundredths.UseVisualStyleBackColor = true;
+            this.btnSegmentTimesHundredths.CheckedChanged += new System.EventHandler(btnSegmentTimesHundredths_CheckedChanged);
             // 
             // btnSegmentTimesTenths
             // 
@@ -800,6 +806,7 @@
             this.btnSegmentTimesSeconds.TabStop = true;
             this.btnSegmentTimesSeconds.Text = "Seconds";
             this.btnSegmentTimesSeconds.UseVisualStyleBackColor = true;
+            this.btnSegmentTimesSeconds.CheckedChanged += new System.EventHandler(btnSegmentTimesSeconds_CheckedChanged);
             // 
             // lblSegmentTimesFont
             // 
@@ -890,6 +897,7 @@
             this.chkSplitName.TabIndex = 0;
             this.chkSplitName.Text = "Show Split Name";
             this.chkSplitName.UseVisualStyleBackColor = true;
+            this.chkSplitName.CheckedChanged += new System.EventHandler(chkSplitName_CheckedChanged);
             // 
             // btnSplitNameColor
             // 
@@ -995,6 +1003,7 @@
             this.cmbComparison.Name = "cmbComparison";
             this.cmbComparison.Size = new System.Drawing.Size(279, 21);
             this.cmbComparison.TabIndex = 2;
+            this.cmbComparison.SelectedIndexChanged += new System.EventHandler(cmbComparison_SelectedIndexChanged);
             // 
             // chkHideComparison
             // 
@@ -1007,6 +1016,7 @@
             this.chkHideComparison.TabIndex = 0;
             this.chkHideComparison.Text = "Hide Comparison 2";
             this.chkHideComparison.UseVisualStyleBackColor = true;
+            this.chkHideComparison.CheckedChanged += new System.EventHandler(chkHideComparison_CheckedChanged);
             // 
             // cmbComparison2
             // 
@@ -1017,6 +1027,7 @@
             this.cmbComparison2.Name = "cmbComparison2";
             this.cmbComparison2.Size = new System.Drawing.Size(279, 21);
             this.cmbComparison2.TabIndex = 4;
+            this.cmbComparison2.SelectedIndexChanged += new System.EventHandler(cmbComparison2_SelectedIndexChanged);
             // 
             // label13
             // 
@@ -1052,6 +1063,7 @@
             this.cmbTimingMethod.Name = "cmbTimingMethod";
             this.cmbTimingMethod.Size = new System.Drawing.Size(286, 21);
             this.cmbTimingMethod.TabIndex = 3;
+            this.cmbTimingMethod.SelectedIndexChanged += new System.EventHandler(cmbTimingMethod_SelectedIndexChanged);
             // 
             // DetailedTimerSettings
             // 
@@ -1061,6 +1073,7 @@
             this.Name = "DetailedTimerSettings";
             this.Padding = new System.Windows.Forms.Padding(7);
             this.Size = new System.Drawing.Size(459, 991);
+            this.Load += new System.EventHandler(DetailedTimerSettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox9.ResumeLayout(false);

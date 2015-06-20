@@ -123,42 +123,23 @@ namespace LiveSplit.UI.Components
             btnSegmentLabelsColor.DataBindings.Add("BackColor", this, "SegmentLabelsColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSegmentTimesColor.DataBindings.Add("BackColor", this, "SegmentTimesColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnSplitNameColor.DataBindings.Add("BackColor", this, "SplitNameColor", false, DataSourceUpdateMode.OnPropertyChanged);
-            btnSegmentTimesSeconds.CheckedChanged += btnSegmentTimesSeconds_CheckedChanged;
-            btnSegmentTimesHundredths.CheckedChanged += btnSegmentTimesHundredths_CheckedChanged;
             trkSegmentTimerRatio.DataBindings.Add("Value", this, "SegmentTimerSizeRatio", false, DataSourceUpdateMode.OnPropertyChanged);
             lblSegmentLabelsFont.DataBindings.Add("Text", this, "SegmentLabelsFontString", false, DataSourceUpdateMode.OnPropertyChanged);
             lblSegmentTimesFont.DataBindings.Add("Text", this, "SegmentTimesFontString", false, DataSourceUpdateMode.OnPropertyChanged);
             lblSplitNameFont.DataBindings.Add("Text", this, "SplitNameFontString", false, DataSourceUpdateMode.OnPropertyChanged);
             chkDisplayIcon.DataBindings.Add("Checked", this, "DisplayIcon", false, DataSourceUpdateMode.OnPropertyChanged);
             trkIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
-
-            cmbGradientType.SelectedIndexChanged += cmbGradientType_SelectedIndexChanged;
             cmbGradientType.DataBindings.Add("SelectedItem", this, "GradientString", false, DataSourceUpdateMode.OnPropertyChanged);
             btnColor1.DataBindings.Add("BackColor", this, "BackgroundColor", false, DataSourceUpdateMode.OnPropertyChanged);
             btnColor2.DataBindings.Add("BackColor", this, "BackgroundColor2", false, DataSourceUpdateMode.OnPropertyChanged);
-            cmbComparison.SelectedIndexChanged += cmbComparison_SelectedIndexChanged;
-            cmbComparison2.SelectedIndexChanged += cmbComparison2_SelectedIndexChanged;
             cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbComparison2.DataBindings.Add("SelectedItem", this, "Comparison2", false, DataSourceUpdateMode.OnPropertyChanged);
             chkHideComparison.DataBindings.Add("Checked", this, "HideComparison", false, DataSourceUpdateMode.OnPropertyChanged);
-
             trkDecimalsSize.DataBindings.Add("Value", this, "DecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
             trkSegmentDecimalsSize.DataBindings.Add("Value", this, "SegmentTimerDecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
-
-            chkHideComparison.CheckedChanged += chkHideComparison_CheckedChanged;
-            chkOverrideTimerColors.CheckedChanged += chkOverrideTimerColors_CheckedChanged;
-            chkDisplayIcon.CheckedChanged += chkDisplayIcon_CheckedChanged;
-            chkSplitName.CheckedChanged += chkSplitName_CheckedChanged;
-
             cmbTimerFormat.DataBindings.Add("SelectedItem", this, "TimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
-            cmbTimerFormat.SelectedIndexChanged += cmbTimerFormat_SelectedIndexChanged;
             cmbSegmentTimerFormat.DataBindings.Add("SelectedItem", this, "SegmentTimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
-            cmbSegmentTimerFormat.SelectedIndexChanged += cmbSegmentTimerFormat_SelectedIndexChanged;
-
             cmbTimingMethod.DataBindings.Add("SelectedItem", this, "TimingMethod", false, DataSourceUpdateMode.OnPropertyChanged);
-            cmbTimingMethod.SelectedIndexChanged += cmbTimingMethod_SelectedIndexChanged;
-
-            this.Load += DetailedTimerSettings_Load;
         }
 
         void cmbTimingMethod_SelectedIndexChanged(object sender, EventArgs e)
