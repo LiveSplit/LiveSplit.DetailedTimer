@@ -172,8 +172,6 @@ namespace LiveSplit.UI.Components
                 SegmentTimer.Settings.TimerFormat = Settings.SegmentTimerFormat;
                 SegmentTimer.Settings.DecimalsSize = Settings.SegmentTimerDecimalsSize;
 
-                var formatter = new SegmentTimesFormatter(Settings.SegmentTimesAccuracy);
-
                 if (state.CurrentSplitIndex >= 0)
                 {
                     var labelsFont = new Font(Settings.SegmentLabelsFont.FontFamily, Settings.SegmentLabelsFont.Size, Settings.SegmentLabelsFont.Style);
