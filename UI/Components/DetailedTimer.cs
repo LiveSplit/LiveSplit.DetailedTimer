@@ -124,7 +124,7 @@ namespace LiveSplit.UI.Components
                     g.FillRectangle(gradientBrush, 0, 0, width, height);
                 }
                 var lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
-                var originalDrawSize = Settings.IconSize;
+                var originalDrawSize = Math.Min(Settings.IconSize, width - 14);
                 if (Settings.DisplayIcon && state.CurrentSplitIndex >= 0)
                 {
                     var icon = state.Run[state.CurrentSplitIndex + lastSplitOffset].Icon ?? NoIconImage;
@@ -148,15 +148,12 @@ namespace LiveSplit.UI.Components
 
                     ImageAnimator.UpdateFrames(icon);
 
-                    var oldClip = g.Clip;
-                    g.IntersectClip(new RectangleF(0, 0, width - Math.Max(InternalComponent.ActualWidth, SegmentTimer.ActualWidth), height));
                     g.DrawImage(
                         icon,
                         7 + (originalDrawSize - drawWidth) / 2,
                         (height - originalDrawSize) / 2.0f + (originalDrawSize - drawHeight) / 2,
                         drawWidth,
                         drawHeight);
-                    g.Clip = oldClip;
                 }
 
                 IconWidth = Settings.DisplayIcon ? (int)(originalDrawSize + 7.5f) : 0;
