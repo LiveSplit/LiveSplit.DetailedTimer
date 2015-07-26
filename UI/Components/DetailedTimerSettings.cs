@@ -366,18 +366,24 @@ namespace LiveSplit.UI.Components
 
         private void btnSegmentLabelsFont_Click(object sender, EventArgs e)
         {
-            SegmentLabelsFont = SettingsHelper.ChooseFont(this, SegmentLabelsFont, 7, 20);
+            var dialog = SettingsHelper.GetFontDialog(SegmentLabelsFont, 7, 20);
+            dialog.FontChanged += (s, ev) => SegmentLabelsFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
+            dialog.ShowDialog(this);
             lblSegmentLabelsFont.Text = SegmentLabelsFontString;
         }
 
         private void btnSegmentTimesFont_Click(object sender, EventArgs e)
         {
-            SegmentTimesFont = SettingsHelper.ChooseFont(this, SegmentTimesFont, 7, 20);
+            var dialog = SettingsHelper.GetFontDialog(SegmentTimesFont, 7, 20);
+            dialog.FontChanged += (s, ev) => SegmentTimesFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
+            dialog.ShowDialog(this);
             lblSegmentTimesFont.Text = SegmentTimesFontString;
         }
         private void btnSplitNameFont_Click(object sender, EventArgs e)
         {
-            SplitNameFont = SettingsHelper.ChooseFont(this, SplitNameFont, 7, 20);
+            var dialog = SettingsHelper.GetFontDialog(SplitNameFont, 7, 20);
+            dialog.FontChanged += (s, ev) => SplitNameFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
+            dialog.ShowDialog(this);
             lblSplitNameFont.Text = SplitNameFontString;
         }
     }
