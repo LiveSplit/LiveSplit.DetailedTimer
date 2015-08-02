@@ -81,6 +81,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Components\DetailedTimerSettings.ja-JP.resx">
+      <DependentUpon>DetailedTimerSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Components\DetailedTimerSettings.resx">
       <DependentUpon>DetailedTimerSettings.cs</DependentUpon>
     </EmbeddedResource>
