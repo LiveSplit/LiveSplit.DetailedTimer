@@ -1,18 +1,13 @@
 ﻿using LiveSplit.Model;
 using LiveSplit.Model.Comparisons;
 using LiveSplit.TimeFormatters;
-using LiveSplit.UI;
-using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace LiveSplit.UI.Components
 {
