@@ -37,11 +37,11 @@ namespace LiveSplit.UI.Components
         public Color BackgroundColor { get; set; }
         public Color BackgroundColor2 { get; set; }
 
-        public GradientType BackgroundGradient { get; set; }
+        public DeltasGradientType BackgroundGradient { get; set; }
         public String GradientString
         {
-            get { return BackgroundGradient.ToString(); }
-            set { BackgroundGradient = (GradientType)Enum.Parse(typeof(GradientType), value); }
+            get { return TimerSettings.GetBackgroundTypeString(BackgroundGradient); }
+            set { BackgroundGradient = (DeltasGradientType)Enum.Parse(typeof(DeltasGradientType), value.Replace(" ", "")); }
         }
 
         public String TimerFormat { get; set; }
@@ -91,7 +91,7 @@ namespace LiveSplit.UI.Components
 
             BackgroundColor = Color.Transparent;
             BackgroundColor2 = Color.Transparent;
-            BackgroundGradient = GradientType.Plain;
+            BackgroundGradient = DeltasGradientType.Plain;
 
             IconSize = 40f;
             DisplayIcon = false;
@@ -181,7 +181,9 @@ namespace LiveSplit.UI.Components
 
         void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnColor1.Visible = cmbGradientType.SelectedItem.ToString() != "Plain";
+            var selectedText = cmbGradientType.SelectedItem.ToString();
+            btnColor1.Visible = selectedText != "Plain" && !selectedText.Contains("Delta");
+            btnColor2.Visible = !selectedText.Contains("Delta");
             btnColor2.DataBindings.Clear();
             btnColor2.DataBindings.Add("BackColor", this, btnColor1.Visible ? "BackgroundColor2" : "BackgroundColor", false, DataSourceUpdateMode.OnPropertyChanged);
             GradientString = cmbGradientType.SelectedItem.ToString();
@@ -230,7 +232,7 @@ namespace LiveSplit.UI.Components
             SplitNameColor = SettingsHelper.ParseColor(element["SplitNameColor"], Color.FromArgb(255, 255, 255));
             BackgroundColor = SettingsHelper.ParseColor(element["BackgroundColor"], Color.Transparent);
             BackgroundColor2 = SettingsHelper.ParseColor(element["BackgroundColor2"], Color.Transparent);
-            GradientString = SettingsHelper.ParseString(element["BackgroundGradient"], GradientType.Plain.ToString());
+            GradientString = SettingsHelper.ParseString(element["BackgroundGradient"], DeltasGradientType.Plain.ToString());
             Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
             Comparison2 = SettingsHelper.ParseString(element["Comparison2"], "Best Segments");
             HideComparison = SettingsHelper.ParseBool(element["HideComparison"], false);

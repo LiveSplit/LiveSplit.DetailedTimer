@@ -101,21 +101,8 @@ namespace LiveSplit.UI.Components
 
         public void DrawGeneral(Graphics g, LiveSplitState state, float width, float height)
         {
-            if (Settings.BackgroundColor.ToArgb() != Color.Transparent.ToArgb()
-            || Settings.BackgroundGradient != GradientType.Plain
-            && Settings.BackgroundColor2.ToArgb() != Color.Transparent.ToArgb())
-            {
-                var gradientBrush = new LinearGradientBrush(
-                            new PointF(0, 0),
-                            Settings.BackgroundGradient == GradientType.Horizontal
-                            ? new PointF(width, 0)
-                            : new PointF(0, height),
-                            Settings.BackgroundColor,
-                            Settings.BackgroundGradient == GradientType.Plain
-                            ? Settings.BackgroundColor
-                            : Settings.BackgroundColor2);
-                g.FillRectangle(gradientBrush, 0, 0, width, height);
-            }
+            Timer.DrawBackground(g, InternalComponent.TimerColor, Settings.BackgroundColor, Settings.BackgroundColor2, width, height, Settings.BackgroundGradient);
+
             var lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
 
             var originalDrawSize = Math.Min(Settings.IconSize, width - 14);
