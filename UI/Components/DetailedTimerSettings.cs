@@ -280,37 +280,47 @@ namespace LiveSplit.UI.Components
         public XmlNode GetSettings(XmlDocument document)
         {
             var parent = document.CreateElement("Settings");
-            parent.AppendChild(SettingsHelper.ToElement(document, "Version", "1.5"));
-            parent.AppendChild(SettingsHelper.ToElement(document, "Height", Height));
-            parent.AppendChild(SettingsHelper.ToElement(document, "Width", Width));
-            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerSizeRatio", SegmentTimerSizeRatio));
-            parent.AppendChild(SettingsHelper.ToElement(document, "TimerShowGradient", TimerShowGradient));
-            parent.AppendChild(SettingsHelper.ToElement(document, "OverrideTimerColors", OverrideTimerColors));
-            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerShowGradient", SegmentTimerShowGradient));
-            parent.AppendChild(SettingsHelper.ToElement(document, "TimerFormat", TimerFormat));
-            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerFormat", SegmentTimerFormat));
-            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimesAccuracy", SegmentTimesAccuracy));
-            parent.AppendChild(SettingsHelper.ToElement(document, TimerColor, "TimerColor"));
-            parent.AppendChild(SettingsHelper.ToElement(document, SegmentTimerColor, "SegmentTimerColor"));
-            parent.AppendChild(SettingsHelper.ToElement(document, SegmentLabelsColor, "SegmentLabelsColor"));
-            parent.AppendChild(SettingsHelper.ToElement(document, SegmentTimesColor, "SegmentTimesColor"));
-            parent.AppendChild(SettingsHelper.CreateFontElement(document, "SegmentLabelsFont", SegmentLabelsFont));
-            parent.AppendChild(SettingsHelper.CreateFontElement(document, "SegmentTimesFont", SegmentTimesFont));
-            parent.AppendChild(SettingsHelper.CreateFontElement(document, "SplitNameFont", SplitNameFont));
-            parent.AppendChild(SettingsHelper.ToElement(document, "DisplayIcon", DisplayIcon));
-            parent.AppendChild(SettingsHelper.ToElement(document, "IconSize", IconSize));
-            parent.AppendChild(SettingsHelper.ToElement(document, "ShowSplitName", ShowSplitName));
-            parent.AppendChild(SettingsHelper.ToElement(document, SplitNameColor, "SplitNameColor"));
-            parent.AppendChild(SettingsHelper.ToElement(document, BackgroundColor, "BackgroundColor"));
-            parent.AppendChild(SettingsHelper.ToElement(document, BackgroundColor2, "BackgroundColor2"));
-            parent.AppendChild(SettingsHelper.ToElement(document, "BackgroundGradient", BackgroundGradient));
-            parent.AppendChild(SettingsHelper.ToElement(document, "Comparison", Comparison));
-            parent.AppendChild(SettingsHelper.ToElement(document, "Comparison2", Comparison2));
-            parent.AppendChild(SettingsHelper.ToElement(document, "HideComparison", HideComparison));
-            parent.AppendChild(SettingsHelper.ToElement(document, "TimingMethod", TimingMethod));
-            parent.AppendChild(SettingsHelper.ToElement(document, "DecimalsSize", DecimalsSize));
-            parent.AppendChild(SettingsHelper.ToElement(document, "SegmentTimerDecimalsSize", SegmentTimerDecimalsSize));
+            CreateSettingsNode(document, parent);
             return parent;
+        }
+
+        public int GetSettingsHashCode()
+        {
+            return CreateSettingsNode(null, null);
+        }
+
+        private int CreateSettingsNode(XmlDocument document, XmlElement parent)
+        {
+            return SettingsHelper.CreateSetting(document, parent, "Version", "1.5") ^
+            SettingsHelper.CreateSetting(document, parent, "Height", Height) ^
+            SettingsHelper.CreateSetting(document, parent, "Width", Width) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimerSizeRatio", SegmentTimerSizeRatio) ^
+            SettingsHelper.CreateSetting(document, parent, "TimerShowGradient", TimerShowGradient) ^
+            SettingsHelper.CreateSetting(document, parent, "OverrideTimerColors", OverrideTimerColors) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimerShowGradient", SegmentTimerShowGradient) ^
+            SettingsHelper.CreateSetting(document, parent, "TimerFormat", TimerFormat) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimerFormat", SegmentTimerFormat) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimesAccuracy", SegmentTimesAccuracy) ^
+            SettingsHelper.CreateSetting(document, parent, "TimerColor", TimerColor) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimerColor", SegmentTimerColor) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentLabelsColor", SegmentLabelsColor) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimesColor", SegmentTimesColor) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentLabelsFont", SegmentLabelsFont) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimesFont", SegmentTimesFont) ^
+            SettingsHelper.CreateSetting(document, parent, "SplitNameFont", SplitNameFont) ^
+            SettingsHelper.CreateSetting(document, parent, "DisplayIcon", DisplayIcon) ^
+            SettingsHelper.CreateSetting(document, parent, "IconSize", IconSize) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowSplitName", ShowSplitName) ^
+            SettingsHelper.CreateSetting(document, parent, "SplitNameColor", SplitNameColor) ^
+            SettingsHelper.CreateSetting(document, parent, "BackgroundColor", BackgroundColor) ^
+            SettingsHelper.CreateSetting(document, parent, "BackgroundColor2", BackgroundColor2) ^
+            SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient) ^
+            SettingsHelper.CreateSetting(document, parent, "Comparison", Comparison) ^
+            SettingsHelper.CreateSetting(document, parent, "Comparison2", Comparison2) ^
+            SettingsHelper.CreateSetting(document, parent, "HideComparison", HideComparison) ^
+            SettingsHelper.CreateSetting(document, parent, "TimingMethod", TimingMethod) ^
+            SettingsHelper.CreateSetting(document, parent, "DecimalsSize", DecimalsSize) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimerDecimalsSize", SegmentTimerDecimalsSize);
         }
 
         private void ColorButtonClick(object sender, EventArgs e)
