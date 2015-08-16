@@ -66,7 +66,7 @@ namespace LiveSplit.UI.Components
         {
             InitializeComponent();
 
-            Height = 50;
+            Height = 75;
             Width = 200;
             SegmentTimerSizeRatio = 40;
 
@@ -85,9 +85,9 @@ namespace LiveSplit.UI.Components
             SegmentTimerFormat = "1.23";
             SegmentTimesAccuracy = TimeAccuracy.Hundredths;
 
-            SegmentLabelsFont = new Font("Segoe UI", 7, FontStyle.Regular);
-            SegmentTimesFont = new Font("Segoe UI", 7, FontStyle.Bold);
-            SplitNameFont = new Font("Segoe UI", 8, FontStyle.Regular);
+            SegmentLabelsFont = new Font("Segoe UI", 10, FontStyle.Regular);
+            SegmentTimesFont = new Font("Segoe UI", 10, FontStyle.Bold);
+            SplitNameFont = new Font("Segoe UI", 11, FontStyle.Regular);
 
             BackgroundColor = Color.Transparent;
             BackgroundColor2 = Color.Transparent;
@@ -248,9 +248,9 @@ namespace LiveSplit.UI.Components
             else
             {
                 OverrideTimerColors = !SettingsHelper.ParseBool(element["TimerUseSplitColors"]);
-                SegmentLabelsFont = new Font("Segoe UI", 7, FontStyle.Regular);
-                SegmentTimesFont = new Font("Segoe UI", 7, FontStyle.Bold);
-                SplitNameFont = new Font("Segoe UI", 8, FontStyle.Regular);
+                SegmentLabelsFont = new Font("Segoe UI", 10, FontStyle.Regular);
+                SegmentTimesFont = new Font("Segoe UI", 10, FontStyle.Bold);
+                SplitNameFont = new Font("Segoe UI", 11, FontStyle.Regular);
             }
 
             if (version >= new Version(1, 5))
