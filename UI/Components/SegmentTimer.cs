@@ -5,7 +5,7 @@ namespace LiveSplit.UI.Components
 {
     public class SegmentTimer : Timer
     {
-        public override TimeSpan? GetTime(Model.LiveSplitState state, TimingMethod method)
+        public override TimeSpan? GetTime(LiveSplitState state, TimingMethod method)
         {
             TimeSpan? lastSplit = TimeSpan.Zero;
             var runEndedDelay = state.CurrentPhase == TimerPhase.Ended ? 1 : 0;

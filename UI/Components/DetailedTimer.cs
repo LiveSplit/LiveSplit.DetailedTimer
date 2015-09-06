@@ -8,12 +8,13 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace LiveSplit.UI.Components
 {
     public class DetailedTimer : IComponent
     {
-        public LiveSplit.UI.Components.Timer InternalComponent { get; set; }
+        public Timer InternalComponent { get; set; }
         public SegmentTimer SegmentTimer { get; set; }
         public SimpleLabel LabelSegment { get; set; }
         public SimpleLabel LabelBest { get; set; }
@@ -23,10 +24,10 @@ namespace LiveSplit.UI.Components
         public DetailedTimerSettings Settings { get; set; }
         public GraphicsCache Cache { get; set; }
 
-        public String Comparison { get; set; }
-        public String Comparison2 { get; set; }
-        public String ComparisonName { get; set; }
-        public String ComparisonName2 { get; set; }
+        public string Comparison { get; set; }
+        public string Comparison2 { get; set; }
+        public string ComparisonName { get; set; }
+        public string ComparisonName2 { get; set; }
         public bool HideComparison { get; set; }
 
         protected int FrameCount { get; set; }
@@ -36,35 +37,20 @@ namespace LiveSplit.UI.Components
         public Image ShadowImage { get; set; }
         protected Image OldImage { get; set; }
 
-        public float PaddingTop { get { return 0f; } }
-        public float PaddingLeft { get { return 7f; } }
-        public float PaddingBottom { get { return 0f; } }
-        public float PaddingRight { get { return 7f; } }
+        public float PaddingTop => 0f;
+        public float PaddingLeft => 7f;
+        public float PaddingBottom => 0f;
+        public float PaddingRight => 7f;
 
-        public float VerticalHeight
-        {
-            get { return Settings.Height; }
-        }
+        public float VerticalHeight => Settings.Height;
 
-        public float HorizontalWidth
-        {
-            get { return Settings.Width; }
-        }
+        public float HorizontalWidth => Settings.Width;
 
-        public float MinimumWidth
-        {
-            get { return 20; }
-        }
+        public float MinimumWidth => 20;
 
-        public float MinimumHeight
-        {
-            get { return 20; }
-        }
+        public float MinimumHeight => 20;
 
-        public IDictionary<string, Action> ContextMenuControls
-        {
-            get { return null; }
-        }
+        public IDictionary<string, Action> ContextMenuControls => null;
 
         public DetailedTimer(LiveSplitState state)
         {
@@ -261,11 +247,7 @@ namespace LiveSplit.UI.Components
             g.Transform = oldMatrix;
         }
 
-        public string ComponentName
-        {
-            get { return "Detailed Timer"; }
-        }
-
+        public string ComponentName => "Detailed Timer";
 
         public Control GetSettingsControl(LayoutMode mode)
         {
@@ -273,12 +255,12 @@ namespace LiveSplit.UI.Components
             return Settings;
         }
 
-        public void SetSettings(System.Xml.XmlNode settings)
+        public void SetSettings(XmlNode settings)
         {
             Settings.SetSettings(settings);
         }
 
-        public System.Xml.XmlNode GetSettings(System.Xml.XmlDocument document)
+        public XmlNode GetSettings(XmlDocument document)
         {
             return Settings.GetSettings(document);
         }
@@ -409,9 +391,6 @@ namespace LiveSplit.UI.Components
         {
         }
 
-        public int GetSettingsHashCode()
-        {
-            return Settings.GetSettingsHashCode();
-        }
+        public int GetSettingsHashCode() => Settings.GetSettingsHashCode();
     }
 }

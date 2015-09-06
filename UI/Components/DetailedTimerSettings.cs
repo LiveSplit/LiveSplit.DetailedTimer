@@ -38,7 +38,7 @@ namespace LiveSplit.UI.Components
         public Color BackgroundColor2 { get; set; }
 
         public DeltasGradientType BackgroundGradient { get; set; }
-        public String GradientString
+        public string GradientString
         {
             get { return TimerSettings.GetBackgroundTypeString(BackgroundGradient); }
             set { BackgroundGradient = (DeltasGradientType)Enum.Parse(typeof(DeltasGradientType), value.Replace(" ", "")); }
@@ -76,17 +76,17 @@ namespace LiveSplit.UI.Components
         public string SegmentAccuracy { get; set; }
         public TimeAccuracy SegmentTimesAccuracy { get; set; }
 
-        public string SegmentLabelsFontString { get { return String.Format("{0} {1}", SegmentLabelsFont.FontFamily.Name, SegmentLabelsFont.Style); } }
+        public string SegmentLabelsFontString => SettingsHelper.FormatFont(SegmentLabelsFont);
         public Font SegmentLabelsFont { get; set; }
-        public string SegmentTimesFontString { get { return String.Format("{0} {1}", SegmentTimesFont.FontFamily.Name, SegmentTimesFont.Style); } }
+        public string SegmentTimesFontString => SettingsHelper.FormatFont(SegmentTimesFont);
         public Font SegmentTimesFont { get; set; }
-        public string SplitNameFontString { get { return String.Format("{0} {1}", SplitNameFont.FontFamily.Name, SplitNameFont.Style); } }
+        public string SplitNameFontString => SettingsHelper.FormatFont(SplitNameFont);
         public Font SplitNameFont { get; set; }
 
-        public String Comparison { get; set; }
-        public String Comparison2 { get; set; }
+        public string Comparison { get; set; }
+        public string Comparison2 { get; set; }
         public bool HideComparison { get; set; }
-        public String TimingMethod { get; set; }
+        public string TimingMethod { get; set; }
 
         public LayoutMode Mode { get; set; }
 
