@@ -41,6 +41,7 @@
             this.trkSegmentTimerRatio = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.cmbAccuracy = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -48,19 +49,20 @@
             this.btnTimerColor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.chkShowGradientTimer = new System.Windows.Forms.CheckBox();
-            this.cmbTimerFormat = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.cmbDigitsFormat = new System.Windows.Forms.ComboBox();
             this.trkDecimalsSize = new System.Windows.Forms.TrackBar();
             this.lblSize = new System.Windows.Forms.Label();
             this.trkSize = new System.Windows.Forms.TrackBar();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.cmbSegmentAccuracy = new System.Windows.Forms.ComboBox();
             this.chkShowGradientSegmentTimer = new System.Windows.Forms.CheckBox();
-            this.btnSegmentTimerColor = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.cmbSegmentTimerFormat = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.cmbSegmentDigitsFormat = new System.Windows.Forms.ComboBox();
+            this.btnSegmentTimerColor = new System.Windows.Forms.Button();
             this.trkSegmentDecimalsSize = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -312,14 +314,16 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.94919F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.05081F));
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Controls.Add(this.cmbAccuracy, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.label15, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.groupBox2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkShowGradientTimer, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.cmbTimerFormat, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label17, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.cmbDigitsFormat, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.trkDecimalsSize, 1, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
@@ -329,8 +333,24 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(433, 170);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // cmbAccuracy
+            // 
+            this.cmbAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbAccuracy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAccuracy.FormattingEnabled = true;
+            this.cmbAccuracy.Items.AddRange(new object[] {
+            "",
+            ".2",
+            ".23"});
+            this.cmbAccuracy.Location = new System.Drawing.Point(291, 115);
+            this.cmbAccuracy.Name = "cmbAccuracy";
+            this.cmbAccuracy.Size = new System.Drawing.Size(139, 21);
+            this.cmbAccuracy.TabIndex = 7;
+            this.cmbAccuracy.SelectedIndexChanged += new System.EventHandler(this.cmbAccuracy_SelectedIndexChanged);
             // 
             // label15
             // 
@@ -338,13 +358,13 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(3, 119);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(140, 13);
+            this.label15.Size = new System.Drawing.Size(138, 13);
             this.label15.TabIndex = 3;
             this.label15.Text = "Format:";
             // 
             // groupBox2
             // 
-            this.tableLayoutPanel2.SetColumnSpan(this.groupBox2, 2);
+            this.tableLayoutPanel2.SetColumnSpan(this.groupBox2, 3);
             this.groupBox2.Controls.Add(this.tableLayoutPanel3);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
@@ -357,8 +377,8 @@
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.49169F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.50832F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.7791F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.2209F));
             this.tableLayoutPanel3.Controls.Add(this.chkOverrideTimerColors, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnTimerColor, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 1);
@@ -390,7 +410,7 @@
             this.btnTimerColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTimerColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTimerColor.Location = new System.Drawing.Point(144, 32);
+            this.btnTimerColor.Location = new System.Drawing.Point(141, 32);
             this.btnTimerColor.Name = "btnTimerColor";
             this.btnTimerColor.Size = new System.Drawing.Size(23, 23);
             this.btnTimerColor.TabIndex = 1;
@@ -403,7 +423,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 13);
+            this.label1.Size = new System.Drawing.Size(132, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "Color:";
             // 
@@ -414,31 +434,10 @@
             this.chkShowGradientTimer.Location = new System.Drawing.Point(7, 88);
             this.chkShowGradientTimer.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.chkShowGradientTimer.Name = "chkShowGradientTimer";
-            this.chkShowGradientTimer.Size = new System.Drawing.Size(136, 17);
+            this.chkShowGradientTimer.Size = new System.Drawing.Size(134, 17);
             this.chkShowGradientTimer.TabIndex = 1;
             this.chkShowGradientTimer.Text = "Show Gradient";
             this.chkShowGradientTimer.UseVisualStyleBackColor = true;
-            // 
-            // cmbTimerFormat
-            // 
-            this.cmbTimerFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbTimerFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTimerFormat.FormattingEnabled = true;
-            this.cmbTimerFormat.Items.AddRange(new object[] {
-            "1.23",
-            "1.2",
-            "1",
-            "00:01.23",
-            "00:01.2",
-            "00:01",
-            "0:00:01.23",
-            "0:00:01.2",
-            "0:00:01"});
-            this.cmbTimerFormat.Location = new System.Drawing.Point(149, 115);
-            this.cmbTimerFormat.Name = "cmbTimerFormat";
-            this.cmbTimerFormat.Size = new System.Drawing.Size(281, 21);
-            this.cmbTimerFormat.TabIndex = 4;
-            this.cmbTimerFormat.SelectedIndexChanged += new System.EventHandler(this.cmbTimerFormat_SelectedIndexChanged);
             // 
             // label17
             // 
@@ -446,18 +445,36 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(3, 148);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(140, 13);
+            this.label17.Size = new System.Drawing.Size(138, 13);
             this.label17.TabIndex = 5;
             this.label17.Text = "Decimals Font Size:";
+            // 
+            // cmbDigitsFormat
+            // 
+            this.cmbDigitsFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbDigitsFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDigitsFormat.FormattingEnabled = true;
+            this.cmbDigitsFormat.Items.AddRange(new object[] {
+            "1",
+            "00:01",
+            "0:00:01",
+            "00:00:01"});
+            this.cmbDigitsFormat.Location = new System.Drawing.Point(147, 115);
+            this.cmbDigitsFormat.Name = "cmbDigitsFormat";
+            this.cmbDigitsFormat.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbDigitsFormat.Size = new System.Drawing.Size(138, 21);
+            this.cmbDigitsFormat.TabIndex = 4;
+            this.cmbDigitsFormat.SelectedIndexChanged += new System.EventHandler(this.cmbDigitsFormat_SelectedIndexChanged);
             // 
             // trkDecimalsSize
             // 
             this.trkDecimalsSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trkDecimalsSize.Location = new System.Drawing.Point(149, 143);
+            this.tableLayoutPanel2.SetColumnSpan(this.trkDecimalsSize, 2);
+            this.trkDecimalsSize.Location = new System.Drawing.Point(147, 143);
             this.trkDecimalsSize.Maximum = 50;
             this.trkDecimalsSize.Minimum = 10;
             this.trkDecimalsSize.Name = "trkDecimalsSize";
-            this.trkDecimalsSize.Size = new System.Drawing.Size(281, 24);
+            this.trkDecimalsSize.Size = new System.Drawing.Size(283, 24);
             this.trkDecimalsSize.TabIndex = 6;
             this.trkDecimalsSize.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trkDecimalsSize.Value = 10;
@@ -496,15 +513,17 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.8983F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.1017F));
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33778F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33778F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.32444F));
+            this.tableLayoutPanel4.Controls.Add(this.cmbSegmentAccuracy, 2, 2);
             this.tableLayoutPanel4.Controls.Add(this.chkShowGradientSegmentTimer, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.btnSegmentTimerColor, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.label14, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.cmbSegmentTimerFormat, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.label18, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.cmbSegmentDigitsFormat, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.btnSegmentTimerColor, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.trkSegmentDecimalsSize, 1, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 16);
@@ -514,8 +533,24 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(433, 116);
             this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // cmbSegmentAccuracy
+            // 
+            this.cmbSegmentAccuracy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSegmentAccuracy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSegmentAccuracy.FormattingEnabled = true;
+            this.cmbSegmentAccuracy.Items.AddRange(new object[] {
+            "",
+            ".2",
+            ".23"});
+            this.cmbSegmentAccuracy.Location = new System.Drawing.Point(291, 62);
+            this.cmbSegmentAccuracy.Name = "cmbSegmentAccuracy";
+            this.cmbSegmentAccuracy.Size = new System.Drawing.Size(139, 21);
+            this.cmbSegmentAccuracy.TabIndex = 6;
+            this.cmbSegmentAccuracy.SelectedIndexChanged += new System.EventHandler(this.cmbSegmentAccuracy_SelectedIndexChanged);
             // 
             // chkShowGradientSegmentTimer
             // 
@@ -524,22 +559,10 @@
             this.chkShowGradientSegmentTimer.Location = new System.Drawing.Point(7, 35);
             this.chkShowGradientSegmentTimer.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.chkShowGradientSegmentTimer.Name = "chkShowGradientSegmentTimer";
-            this.chkShowGradientSegmentTimer.Size = new System.Drawing.Size(136, 17);
+            this.chkShowGradientSegmentTimer.Size = new System.Drawing.Size(134, 17);
             this.chkShowGradientSegmentTimer.TabIndex = 1;
             this.chkShowGradientSegmentTimer.Text = "Show Gradient";
             this.chkShowGradientSegmentTimer.UseVisualStyleBackColor = true;
-            // 
-            // btnSegmentTimerColor
-            // 
-            this.btnSegmentTimerColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSegmentTimerColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSegmentTimerColor.Location = new System.Drawing.Point(149, 3);
-            this.btnSegmentTimerColor.Name = "btnSegmentTimerColor";
-            this.btnSegmentTimerColor.Size = new System.Drawing.Size(23, 23);
-            this.btnSegmentTimerColor.TabIndex = 0;
-            this.btnSegmentTimerColor.UseVisualStyleBackColor = false;
-            this.btnSegmentTimerColor.Click += new System.EventHandler(this.ColorButtonClick);
             // 
             // label2
             // 
@@ -547,7 +570,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 13);
+            this.label2.Size = new System.Drawing.Size(138, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Color:";
             // 
@@ -557,30 +580,9 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(3, 66);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(140, 13);
+            this.label14.Size = new System.Drawing.Size(138, 13);
             this.label14.TabIndex = 2;
             this.label14.Text = "Format:";
-            // 
-            // cmbSegmentTimerFormat
-            // 
-            this.cmbSegmentTimerFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbSegmentTimerFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSegmentTimerFormat.FormattingEnabled = true;
-            this.cmbSegmentTimerFormat.Items.AddRange(new object[] {
-            "1.23",
-            "1.2",
-            "1",
-            "00:01.23",
-            "00:01.2",
-            "00:01",
-            "0:00:01.23",
-            "0:00:01.2",
-            "0:00:01"});
-            this.cmbSegmentTimerFormat.Location = new System.Drawing.Point(149, 62);
-            this.cmbSegmentTimerFormat.Name = "cmbSegmentTimerFormat";
-            this.cmbSegmentTimerFormat.Size = new System.Drawing.Size(281, 21);
-            this.cmbSegmentTimerFormat.TabIndex = 3;
-            this.cmbSegmentTimerFormat.SelectedIndexChanged += new System.EventHandler(this.cmbSegmentTimerFormat_SelectedIndexChanged);
             // 
             // label18
             // 
@@ -588,18 +590,48 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(3, 95);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(140, 13);
+            this.label18.Size = new System.Drawing.Size(138, 13);
             this.label18.TabIndex = 4;
             this.label18.Text = "Decimals Font Size:";
+            // 
+            // cmbSegmentDigitsFormat
+            // 
+            this.cmbSegmentDigitsFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSegmentDigitsFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSegmentDigitsFormat.FormattingEnabled = true;
+            this.cmbSegmentDigitsFormat.Items.AddRange(new object[] {
+            "1",
+            "00:01",
+            "0:00:01",
+            "00:00:01"});
+            this.cmbSegmentDigitsFormat.Location = new System.Drawing.Point(147, 62);
+            this.cmbSegmentDigitsFormat.Name = "cmbSegmentDigitsFormat";
+            this.cmbSegmentDigitsFormat.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbSegmentDigitsFormat.Size = new System.Drawing.Size(138, 21);
+            this.cmbSegmentDigitsFormat.TabIndex = 3;
+            this.cmbSegmentDigitsFormat.SelectedIndexChanged += new System.EventHandler(this.cmbSegmentDigitsFormat_SelectedIndexChanged);
+            // 
+            // btnSegmentTimerColor
+            // 
+            this.btnSegmentTimerColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSegmentTimerColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSegmentTimerColor.Location = new System.Drawing.Point(147, 3);
+            this.btnSegmentTimerColor.Name = "btnSegmentTimerColor";
+            this.btnSegmentTimerColor.Size = new System.Drawing.Size(23, 23);
+            this.btnSegmentTimerColor.TabIndex = 0;
+            this.btnSegmentTimerColor.UseVisualStyleBackColor = false;
+            this.btnSegmentTimerColor.Click += new System.EventHandler(this.ColorButtonClick);
             // 
             // trkSegmentDecimalsSize
             // 
             this.trkSegmentDecimalsSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.trkSegmentDecimalsSize.Location = new System.Drawing.Point(149, 90);
+            this.tableLayoutPanel4.SetColumnSpan(this.trkSegmentDecimalsSize, 2);
+            this.trkSegmentDecimalsSize.Location = new System.Drawing.Point(147, 90);
             this.trkSegmentDecimalsSize.Maximum = 50;
             this.trkSegmentDecimalsSize.Minimum = 10;
             this.trkSegmentDecimalsSize.Name = "trkSegmentDecimalsSize";
-            this.trkSegmentDecimalsSize.Size = new System.Drawing.Size(281, 23);
+            this.trkSegmentDecimalsSize.Size = new System.Drawing.Size(283, 23);
             this.trkSegmentDecimalsSize.TabIndex = 5;
             this.trkSegmentDecimalsSize.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trkSegmentDecimalsSize.Value = 10;
@@ -1180,13 +1212,15 @@
         private System.Windows.Forms.CheckBox chkHideComparison;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox cmbTimerFormat;
-        private System.Windows.Forms.ComboBox cmbSegmentTimerFormat;
+        private System.Windows.Forms.ComboBox cmbDigitsFormat;
+        private System.Windows.Forms.ComboBox cmbSegmentDigitsFormat;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cmbTimingMethod;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TrackBar trkDecimalsSize;
         private System.Windows.Forms.TrackBar trkSegmentDecimalsSize;
+        private System.Windows.Forms.ComboBox cmbAccuracy;
+        private System.Windows.Forms.ComboBox cmbSegmentAccuracy;
     }
 }

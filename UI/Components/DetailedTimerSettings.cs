@@ -44,8 +44,36 @@ namespace LiveSplit.UI.Components
             set { BackgroundGradient = (DeltasGradientType)Enum.Parse(typeof(DeltasGradientType), value.Replace(" ", "")); }
         }
 
-        public String TimerFormat { get; set; }
-        public String SegmentTimerFormat { get; set; }
+        private string timerFormat
+        {
+            get
+            {
+                return DigitsFormat + Accuracy;
+            }
+            set
+            {
+                var decimalIndex = value.IndexOf('.');
+                DigitsFormat = value.Substring(0, decimalIndex);
+                Accuracy = value.Substring(decimalIndex);
+            }
+        }
+        public string DigitsFormat { get; set; }
+        public string Accuracy { get; set; }
+        private string segmentTimerFormat
+        {
+            get
+            {
+                return SegmentDigitsFormat + SegmentAccuracy;
+            }
+            set
+            {
+                var decimalIndex = value.IndexOf('.');
+                SegmentDigitsFormat = value.Substring(0, decimalIndex);
+                SegmentAccuracy = value.Substring(decimalIndex);
+            }
+        }
+        public string SegmentDigitsFormat { get; set; }
+        public string SegmentAccuracy { get; set; }
         public TimeAccuracy SegmentTimesAccuracy { get; set; }
 
         public string SegmentLabelsFontString { get { return String.Format("{0} {1}", SegmentLabelsFont.FontFamily.Name, SegmentLabelsFont.Style); } }
@@ -81,8 +109,10 @@ namespace LiveSplit.UI.Components
             SegmentTimesColor = Color.FromArgb(255, 255, 255);
             SplitNameColor = Color.FromArgb(255, 255, 255);
 
-            TimerFormat = "1.23";
-            SegmentTimerFormat = "1.23";
+            DigitsFormat = "1";
+            Accuracy = ".23";
+            SegmentDigitsFormat = "1";
+            SegmentAccuracy = ".23";
             SegmentTimesAccuracy = TimeAccuracy.Hundredths;
 
             SegmentLabelsFont = new Font("Segoe UI", 10, FontStyle.Regular);
@@ -127,8 +157,10 @@ namespace LiveSplit.UI.Components
             chkHideComparison.DataBindings.Add("Checked", this, "HideComparison", false, DataSourceUpdateMode.OnPropertyChanged);
             trkDecimalsSize.DataBindings.Add("Value", this, "DecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
             trkSegmentDecimalsSize.DataBindings.Add("Value", this, "SegmentTimerDecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
-            cmbTimerFormat.DataBindings.Add("SelectedItem", this, "TimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
-            cmbSegmentTimerFormat.DataBindings.Add("SelectedItem", this, "SegmentTimerFormat", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbDigitsFormat.DataBindings.Add("SelectedItem", this, "DigitsFormat", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbAccuracy.DataBindings.Add("SelectedItem", this, "Accuracy", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbSegmentDigitsFormat.DataBindings.Add("SelectedItem", this, "SegmentDigitsFormat", false, DataSourceUpdateMode.OnPropertyChanged);
+            cmbSegmentAccuracy.DataBindings.Add("SelectedItem", this, "SegmentAccuracy", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbTimingMethod.DataBindings.Add("SelectedItem", this, "TimingMethod", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -137,14 +169,24 @@ namespace LiveSplit.UI.Components
             TimingMethod = cmbTimingMethod.SelectedItem.ToString();
         }
 
-        void cmbSegmentTimerFormat_SelectedIndexChanged(object sender, EventArgs e)
+        void cmbSegmentDigitsFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SegmentTimerFormat = cmbSegmentTimerFormat.SelectedItem.ToString();
+            SegmentDigitsFormat = cmbSegmentDigitsFormat.SelectedItem.ToString();
         }
 
-        void cmbTimerFormat_SelectedIndexChanged(object sender, EventArgs e)
+        void cmbSegmentAccuracy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TimerFormat = cmbTimerFormat.SelectedItem.ToString();
+            SegmentAccuracy = cmbSegmentAccuracy.SelectedItem.ToString();
+        }
+
+        void cmbDigitsFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DigitsFormat = cmbDigitsFormat.SelectedItem.ToString();
+        }
+
+        void cmbAccuracy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Accuracy = cmbAccuracy.SelectedItem.ToString();
         }
 
         void chkSplitName_CheckedChanged(object sender, EventArgs e)
@@ -255,25 +297,27 @@ namespace LiveSplit.UI.Components
 
             if (version >= new Version(1, 5))
             {
-                TimerFormat = element["TimerFormat"].InnerText;
-                SegmentTimerFormat = element["SegmentTimerFormat"].InnerText;
+                timerFormat = element["TimerFormat"].InnerText;
+                segmentTimerFormat = element["SegmentTimerFormat"].InnerText;
             }
             else
             {
+                DigitsFormat = "1";
+                SegmentDigitsFormat = "1";
                 var timerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
                 if (timerAccuracy == TimeAccuracy.Hundredths)
-                    TimerFormat = "1.23";
+                    Accuracy = ".23";
                 else if (timerAccuracy == TimeAccuracy.Tenths)
-                    TimerFormat = "1.2";
+                    Accuracy = ".2";
                 else
-                    TimerFormat = "1";
+                    Accuracy = "";
                 var segmentTimerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
                 if (segmentTimerAccuracy == TimeAccuracy.Hundredths)
-                    SegmentTimerFormat = "1.23";
+                    SegmentAccuracy = ".23";
                 else if (segmentTimerAccuracy == TimeAccuracy.Tenths)
-                    SegmentTimerFormat = "1.2";
+                    SegmentAccuracy = ".2";
                 else
-                    SegmentTimerFormat = "1";
+                    SegmentAccuracy = "";
             }
         }
 
@@ -298,8 +342,8 @@ namespace LiveSplit.UI.Components
             SettingsHelper.CreateSetting(document, parent, "TimerShowGradient", TimerShowGradient) ^
             SettingsHelper.CreateSetting(document, parent, "OverrideTimerColors", OverrideTimerColors) ^
             SettingsHelper.CreateSetting(document, parent, "SegmentTimerShowGradient", SegmentTimerShowGradient) ^
-            SettingsHelper.CreateSetting(document, parent, "TimerFormat", TimerFormat) ^
-            SettingsHelper.CreateSetting(document, parent, "SegmentTimerFormat", SegmentTimerFormat) ^
+            SettingsHelper.CreateSetting(document, parent, "TimerFormat", timerFormat) ^
+            SettingsHelper.CreateSetting(document, parent, "SegmentTimerFormat", segmentTimerFormat) ^
             SettingsHelper.CreateSetting(document, parent, "SegmentTimesAccuracy", SegmentTimesAccuracy) ^
             SettingsHelper.CreateSetting(document, parent, "TimerColor", TimerColor) ^
             SettingsHelper.CreateSetting(document, parent, "SegmentTimerColor", SegmentTimerColor) ^
