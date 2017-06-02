@@ -154,6 +154,7 @@ namespace LiveSplit.UI.Components
                 LabelSegment.ForeColor = Settings.SegmentLabelsColor;
                 LabelSegment.HasShadow = state.LayoutSettings.DropShadows;
                 LabelSegment.ShadowColor = state.LayoutSettings.ShadowsColor;
+                LabelSegment.OutlineColor = state.LayoutSettings.TextOutlineColor;
                 if (Comparison != "None")
                     LabelSegment.Draw(g);
 
@@ -167,6 +168,7 @@ namespace LiveSplit.UI.Components
                 LabelBest.ForeColor = Settings.SegmentLabelsColor;
                 LabelBest.HasShadow = state.LayoutSettings.DropShadows;
                 LabelBest.ShadowColor = state.LayoutSettings.ShadowsColor;
+                LabelBest.OutlineColor = state.LayoutSettings.TextOutlineColor;
                 if (!HideComparison)
                     LabelBest.Draw(g);
 
@@ -184,12 +186,14 @@ namespace LiveSplit.UI.Components
                     SegmentTime.ForeColor = Settings.SegmentTimesColor;
                     SegmentTime.HasShadow = state.LayoutSettings.DropShadows;
                     SegmentTime.ShadowColor = state.LayoutSettings.ShadowsColor;
+                    SegmentTime.OutlineColor = state.LayoutSettings.TextOutlineColor;
                     SegmentTime.IsMonospaced = true;
                     SegmentTime.Draw(g);
                 }
 
                 if (!HideComparison)
                 {
+                    BestSegmentTime.Font = timesFont;
                     BestSegmentTime.X = offset + IconWidth;
                     BestSegmentTime.Y = height * ((100f - Settings.SegmentTimerSizeRatio / 2f) / 100f);
                     BestSegmentTime.Width = width - SegmentTimer.ActualWidth - offset - IconWidth;
@@ -199,9 +203,8 @@ namespace LiveSplit.UI.Components
                     BestSegmentTime.ForeColor = Settings.SegmentTimesColor;
                     BestSegmentTime.HasShadow = state.LayoutSettings.DropShadows;
                     BestSegmentTime.ShadowColor = state.LayoutSettings.ShadowsColor;
+                    BestSegmentTime.OutlineColor = state.LayoutSettings.TextOutlineColor;
                     BestSegmentTime.IsMonospaced = true;
-                    BestSegmentTime.ShadowColor = state.LayoutSettings.ShadowsColor;
-                    BestSegmentTime.Font = timesFont;
                     BestSegmentTime.Draw(g);
                 }
                 SplitName.Font = Settings.SplitNameFont;
@@ -214,10 +217,9 @@ namespace LiveSplit.UI.Components
                 SplitName.ForeColor = Settings.SplitNameColor;
                 SplitName.HasShadow = state.LayoutSettings.DropShadows;
                 SplitName.ShadowColor = state.LayoutSettings.ShadowsColor;
+                SplitName.OutlineColor = state.LayoutSettings.TextOutlineColor;
                 if (Settings.ShowSplitName)
                     SplitName.Draw(g);
-                SegmentTime.ShadowColor = state.LayoutSettings.ShadowsColor;
-                SplitName.ShadowColor = state.LayoutSettings.ShadowsColor;
             }
         }
 
