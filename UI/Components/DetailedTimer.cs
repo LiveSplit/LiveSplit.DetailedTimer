@@ -383,7 +383,7 @@ namespace LiveSplit.UI.Components
                     Cache["TimerColor"] = InternalComponent.BigTextLabel.ForeColor.ToArgb();
             }
 
-            if (invalidator != null && Cache.HasChanged || FrameCount > 1)
+            if (invalidator != null && (Cache.HasChanged || FrameCount > 1))
             {
                 invalidator.Invalidate(0, 0, width, height);
             }
