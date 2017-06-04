@@ -324,7 +324,7 @@ namespace LiveSplit.UI.Components
                     if (segmentTime != null)
                         SegmentTime.Text = formatter.Format(segmentTime);
                     else
-                        SegmentTime.Text = "-";
+                        SegmentTime.Text = TimeFormatConstants.DASH;
                 }
 
                 if (!HideComparison)
@@ -344,7 +344,7 @@ namespace LiveSplit.UI.Components
                     if (bestSegmentTime != null)
                         BestSegmentTime.Text = formatter.Format(bestSegmentTime);
                     else
-                        BestSegmentTime.Text = "-";
+                        BestSegmentTime.Text = TimeFormatConstants.DASH;
                 }
                 if (state.CurrentSplitIndex >= 0)
                     SplitName.Text = state.Run[state.CurrentSplitIndex + lastSplitOffset].Name;

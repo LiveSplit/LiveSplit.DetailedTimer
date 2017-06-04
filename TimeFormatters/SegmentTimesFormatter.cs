@@ -15,7 +15,7 @@ namespace LiveSplit.TimeFormatters
         {
             if (time == null)
             {
-                return "-";
+                return TimeFormatConstants.DASH;
             }
             else
             {
