@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace LiveSplit.UI.Components
 {
@@ -51,6 +52,8 @@ namespace LiveSplit.UI.Components
         public float MinimumHeight => 20;
 
         public IDictionary<string, Action> ContextMenuControls => null;
+
+        private Regex SubsplitRegex = new Regex(@"^{(.+)}\s*(.+)$", RegexOptions.Compiled);
 
         public DetailedTimer(LiveSplitState state)
         {
@@ -334,11 +337,11 @@ namespace LiveSplit.UI.Components
                         bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
                     else
                     {
-                    if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
-                        bestSegmentTime = state.Run[0].Comparisons[Comparison2][timingMethod];
-                    else if (state.CurrentSplitIndex > 0)
-                        bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison2][timingMethod]
-                            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][timingMethod];
+                        if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
+                            bestSegmentTime = state.Run[0].Comparisons[Comparison2][timingMethod];
+                        else if (state.CurrentSplitIndex > 0)
+                            bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison2][timingMethod]
+                                - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][timingMethod];
                     }
 
                     if (bestSegmentTime != null)
@@ -347,7 +350,22 @@ namespace LiveSplit.UI.Components
                         BestSegmentTime.Text = TimeFormatConstants.DASH;
                 }
                 if (state.CurrentSplitIndex >= 0)
-                    SplitName.Text = state.Run[state.CurrentSplitIndex + lastSplitOffset].Name;
+                {
+                    string name = state.Run[state.CurrentSplitIndex + lastSplitOffset].Name;
+
+                    bool isSubsplit = name.StartsWith("-") && state.CurrentSplitIndex + lastSplitOffset < state.Run.Count - 1;
+
+                    if (isSubsplit)
+                        SplitName.Text = name.Substring(1);
+                    else
+                    {
+                        Match match = SubsplitRegex.Match(name);
+                        if (match.Success)
+                            SplitName.Text = match.Groups[2].Value;
+                        else
+                            SplitName.Text = name;
+                    }
+                }
                 else
                     SplitName.Text = "";
             }
