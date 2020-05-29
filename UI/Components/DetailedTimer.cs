@@ -353,7 +353,7 @@ namespace LiveSplit.UI.Components
                 {
                     string name = state.Run[state.CurrentSplitIndex + lastSplitOffset].Name;
 
-                    bool isSubsplit = name.StartsWith("-") && state.CurrentSplitIndex + lastSplitOffset < state.Run.Count;
+                    bool isSubsplit = name.StartsWith("-") && state.CurrentSplitIndex + lastSplitOffset < state.Run.Count - 1;
 
                     if (isSubsplit)
                         SplitName.Text = name.Substring(1);
