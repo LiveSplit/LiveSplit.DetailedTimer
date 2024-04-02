@@ -1,5 +1,8 @@
 ﻿using LiveSplit.Model;
+using LiveSplit.UI.Components;
 using System;
+
+[assembly: ComponentFactory(typeof(DetailedTimerFactory))]
 
 namespace LiveSplit.UI.Components
 {
