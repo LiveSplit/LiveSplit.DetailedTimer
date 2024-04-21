@@ -131,9 +131,9 @@ namespace LiveSplit.UI.Components
             SegmentAccuracy = ".23";
             SegmentTimesAccuracy = TimeAccuracy.Hundredths;
 
-            SegmentLabelsFont = new Font("Segoe UI", 10, FontStyle.Regular);
-            SegmentTimesFont = new Font("Segoe UI", 10, FontStyle.Bold);
-            SplitNameFont = new Font("Segoe UI", 11, FontStyle.Regular);
+            SegmentLabelsFont = new Font("Segoe UI", 13, FontStyle.Regular, GraphicsUnit.Pixel);
+            SegmentTimesFont = new Font("Segoe UI", 13, FontStyle.Bold, GraphicsUnit.Pixel);
+            SplitNameFont = new Font("Segoe UI", 15, FontStyle.Regular, GraphicsUnit.Pixel);
 
             BackgroundColor = Color.Transparent;
             BackgroundColor2 = Color.Transparent;
@@ -306,9 +306,9 @@ namespace LiveSplit.UI.Components
             else
             {
                 OverrideTimerColors = !SettingsHelper.ParseBool(element["TimerUseSplitColors"]);
-                SegmentLabelsFont = new Font("Segoe UI", 10, FontStyle.Regular);
-                SegmentTimesFont = new Font("Segoe UI", 10, FontStyle.Bold);
-                SplitNameFont = new Font("Segoe UI", 11, FontStyle.Regular);
+                SegmentLabelsFont = new Font("Segoe UI", 13, FontStyle.Regular, GraphicsUnit.Pixel);
+                SegmentTimesFont = new Font("Segoe UI", 13, FontStyle.Bold, GraphicsUnit.Pixel);
+                SplitNameFont = new Font("Segoe UI", 15, FontStyle.Regular, GraphicsUnit.Pixel);
             }
 
             if (version >= new Version(1, 5))
@@ -428,7 +428,7 @@ namespace LiveSplit.UI.Components
 
         private void btnSegmentLabelsFont_Click(object sender, EventArgs e)
         {
-            var dialog = SettingsHelper.GetFontDialog(SegmentLabelsFont, 7, 20);
+            var dialog = SettingsHelper.GetFontDialog(SegmentLabelsFont, 7, 26);
             dialog.FontChanged += (s, ev) => SegmentLabelsFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
             dialog.ShowDialog(this);
             lblSegmentLabelsFont.Text = SegmentLabelsFontString;
@@ -436,14 +436,14 @@ namespace LiveSplit.UI.Components
 
         private void btnSegmentTimesFont_Click(object sender, EventArgs e)
         {
-            var dialog = SettingsHelper.GetFontDialog(SegmentTimesFont, 7, 20);
+            var dialog = SettingsHelper.GetFontDialog(SegmentTimesFont, 7, 26);
             dialog.FontChanged += (s, ev) => SegmentTimesFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
             dialog.ShowDialog(this);
             lblSegmentTimesFont.Text = SegmentTimesFontString;
         }
         private void btnSplitNameFont_Click(object sender, EventArgs e)
         {
-            var dialog = SettingsHelper.GetFontDialog(SplitNameFont, 7, 20);
+            var dialog = SettingsHelper.GetFontDialog(SplitNameFont, 7, 26);
             dialog.FontChanged += (s, ev) => SplitNameFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
             dialog.ShowDialog(this);
             lblSplitNameFont.Text = SplitNameFontString;

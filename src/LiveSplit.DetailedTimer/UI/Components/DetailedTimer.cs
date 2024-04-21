@@ -145,8 +145,8 @@ namespace LiveSplit.UI.Components
 
             if (state.CurrentSplitIndex >= 0)
             {
-                var labelsFont = new Font(Settings.SegmentLabelsFont.FontFamily, Settings.SegmentLabelsFont.Size, Settings.SegmentLabelsFont.Style);
-                var timesFont = new Font(Settings.SegmentTimesFont.FontFamily, Settings.SegmentTimesFont.Size, Settings.SegmentTimesFont.Style);
+                var labelsFont = new Font(Settings.SegmentLabelsFont.FontFamily, Settings.SegmentLabelsFont.Size, Settings.SegmentLabelsFont.Style, Settings.SegmentLabelsFont.Unit);
+                var timesFont = new Font(Settings.SegmentTimesFont.FontFamily, Settings.SegmentTimesFont.Size, Settings.SegmentTimesFont.Style, Settings.SegmentTimesFont.Unit);
                 LabelSegment.Font = labelsFont;
                 LabelSegment.X = 5 + IconWidth;
                 LabelSegment.Y = height * ((100f - Settings.SegmentTimerSizeRatio) / 100f);
