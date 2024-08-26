@@ -24,13 +24,11 @@ namespace LiveSplit.UI.Components
         public SimpleLabel SplitName { get; set; }
         public DetailedTimerSettings Settings { get; set; }
         public GraphicsCache Cache { get; set; }
-
         public string Comparison { get; set; }
         public string Comparison2 { get; set; }
         public string ComparisonName { get; set; }
         public string ComparisonName2 { get; set; }
         public bool HideComparison { get; set; }
-
         protected int FrameCount { get; set; }
 
         protected int IconWidth { get; set; }
@@ -273,14 +271,12 @@ namespace LiveSplit.UI.Components
         public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
         {
             var lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
-
+            var Formatter = Settings.SegmentTimesFormatter;
             var timingMethod = state.CurrentTimingMethod;
             if (Settings.TimingMethod == "Real Time")
                 timingMethod = TimingMethod.RealTime;
             else if (Settings.TimingMethod == "Game Time")
                 timingMethod = TimingMethod.GameTime;
-
-            var formatter = new SegmentTimesFormatter(Settings.SegmentTimesAccuracy);
 
             if (state.CurrentSplitIndex >= 0)
             {
@@ -324,10 +320,7 @@ namespace LiveSplit.UI.Components
 
                 if (Comparison != "None")
                 {
-                    if (segmentTime != null)
-                        SegmentTime.Text = formatter.Format(segmentTime);
-                    else
-                        SegmentTime.Text = TimeFormatConstants.DASH;
+                    SegmentTime.Text = Formatter.Format(segmentTime);
                 }
 
                 if (!HideComparison)
@@ -344,10 +337,7 @@ namespace LiveSplit.UI.Components
                                 - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][timingMethod];
                     }
 
-                    if (bestSegmentTime != null)
-                        BestSegmentTime.Text = formatter.Format(bestSegmentTime);
-                    else
-                        BestSegmentTime.Text = TimeFormatConstants.DASH;
+                    BestSegmentTime.Text = Formatter.Format(bestSegmentTime);
                 }
                 if (state.CurrentSplitIndex >= 0)
                 {

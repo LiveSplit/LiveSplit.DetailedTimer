@@ -14,7 +14,6 @@ namespace LiveSplit.UI.Components
         public float Height { get; set; }
         public float Width { get; set; }
         public float SegmentTimerSizeRatio { get; set; }
-
         public LiveSplitState CurrentState { get; set; }
 
         public bool TimerShowGradient { get; set; }
@@ -43,7 +42,6 @@ namespace LiveSplit.UI.Components
             get { return TimerSettings.GetBackgroundTypeString(BackgroundGradient); }
             set { BackgroundGradient = (DeltasGradientType)Enum.Parse(typeof(DeltasGradientType), value.Replace(" ", "")); }
         }
-
         private string timerFormat
         {
             get
@@ -91,7 +89,11 @@ namespace LiveSplit.UI.Components
         public string SegmentDigitsFormat { get; set; }
         public string SegmentAccuracy { get; set; }
         public TimeAccuracy SegmentTimesAccuracy { get; set; }
-
+        public GeneralTimeFormatter SegmentTimesFormatter { get; set; } = new GeneralTimeFormatter()
+        {
+            NullFormat = NullFormat.Dash,
+            Accuracy = TimeAccuracy.Hundredths
+        };
         public string SegmentLabelsFontString => SettingsHelper.FormatFont(SegmentLabelsFont);
         public Font SegmentLabelsFont { get; set; }
         public string SegmentTimesFontString => SettingsHelper.FormatFont(SegmentTimesFont);
@@ -247,24 +249,32 @@ namespace LiveSplit.UI.Components
             GradientString = cmbGradientType.SelectedItem.ToString();
         }
 
-        void btnSegmentTimesHundredths_CheckedChanged(object sender, EventArgs e)
+        void rdoSegmentTimesHundredths_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAccuracySegmentTimes();
         }
 
-        void btnSegmentTimesSeconds_CheckedChanged(object sender, EventArgs e)
+        void rdoSegmentTimesTenths_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateAccuracySegmentTimes();
+        }
+
+        void rdoSegmentTimesSeconds_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAccuracySegmentTimes();
         }
 
         void UpdateAccuracySegmentTimes()
         {
-            if (btnSegmentTimesSeconds.Checked)
+            if (rdoSegmentTimesSeconds.Checked)
                 SegmentTimesAccuracy = TimeAccuracy.Seconds;
-            else if (btnSegmentTimesTenths.Checked)
+            else if (rdoSegmentTimesTenths.Checked)
                 SegmentTimesAccuracy = TimeAccuracy.Tenths;
-            else
+            else if (rdoSegmentTimesHundredths.Checked)
                 SegmentTimesAccuracy = TimeAccuracy.Hundredths;
+            else
+                SegmentTimesAccuracy = TimeAccuracy.Milliseconds;
+            SegmentTimesFormatter.Accuracy = SegmentTimesAccuracy;
         }
 
         public void SetSettings(XmlNode node)
@@ -321,19 +331,24 @@ namespace LiveSplit.UI.Components
                 DigitsFormat = "1";
                 SegmentDigitsFormat = "1";
                 var timerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
-                if (timerAccuracy == TimeAccuracy.Hundredths)
-                    Accuracy = ".23";
-                else if (timerAccuracy == TimeAccuracy.Tenths)
-                    Accuracy = ".2";
-                else
-                    Accuracy = "";
+                switch (timerAccuracy)
+                {
+                    case TimeAccuracy.Seconds: Accuracy = ""; break;
+                    case TimeAccuracy.Tenths: Accuracy = ".2"; break;
+                    case TimeAccuracy.Hundredths: Accuracy = ".23"; break;
+                    case TimeAccuracy.Milliseconds: Accuracy = ".234"; break;
+                    default: Accuracy = ".23"; break;
+                }
+
                 var segmentTimerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
-                if (segmentTimerAccuracy == TimeAccuracy.Hundredths)
-                    SegmentAccuracy = ".23";
-                else if (segmentTimerAccuracy == TimeAccuracy.Tenths)
-                    SegmentAccuracy = ".2";
-                else
-                    SegmentAccuracy = "";
+                switch (segmentTimerAccuracy)
+                {
+                    case TimeAccuracy.Seconds: SegmentAccuracy = ""; break;
+                    case TimeAccuracy.Tenths: SegmentAccuracy = ".2"; break;
+                    case TimeAccuracy.Hundredths: SegmentAccuracy = ".23"; break;
+                    case TimeAccuracy.Milliseconds: SegmentAccuracy = ".234"; break;
+                    default: SegmentAccuracy = ".23"; break;
+                }
             }
         }
 
@@ -404,9 +419,10 @@ namespace LiveSplit.UI.Components
             cmbComparison2.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
             if (!cmbComparison2.Items.Contains(Comparison2))
                 cmbComparison2.Items.Add(Comparison2);
-            btnSegmentTimesHundredths.Checked = SegmentTimesAccuracy == TimeAccuracy.Hundredths;
-            btnSegmentTimesTenths.Checked = SegmentTimesAccuracy == TimeAccuracy.Tenths;
-            btnSegmentTimesSeconds.Checked = SegmentTimesAccuracy == TimeAccuracy.Seconds;
+            rdoSegmentTimesMilliseconds.Checked = SegmentTimesAccuracy == TimeAccuracy.Milliseconds;
+            rdoSegmentTimesHundredths.Checked = SegmentTimesAccuracy == TimeAccuracy.Hundredths;
+            rdoSegmentTimesTenths.Checked = SegmentTimesAccuracy == TimeAccuracy.Tenths;
+            rdoSegmentTimesSeconds.Checked = SegmentTimesAccuracy == TimeAccuracy.Seconds;
 
             if (Mode == LayoutMode.Horizontal)
             {
