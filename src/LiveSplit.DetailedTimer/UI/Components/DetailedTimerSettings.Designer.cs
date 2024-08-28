@@ -1,4 +1,4 @@
-﻿namespace LiveSplit.UI.Components
+namespace LiveSplit.UI.Components
 {
     partial class DetailedTimerSettings
     {
@@ -77,9 +77,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSegmentTimesHundredths = new System.Windows.Forms.RadioButton();
-            this.btnSegmentTimesTenths = new System.Windows.Forms.RadioButton();
-            this.btnSegmentTimesSeconds = new System.Windows.Forms.RadioButton();
+            this.rdoSegmentTimesMilliseconds = new System.Windows.Forms.RadioButton();
+            this.rdoSegmentTimesHundredths = new System.Windows.Forms.RadioButton();
+            this.rdoSegmentTimesTenths = new System.Windows.Forms.RadioButton();
+            this.rdoSegmentTimesSeconds = new System.Windows.Forms.RadioButton();
             this.lblSegmentTimesFont = new System.Windows.Forms.Label();
             this.btnSegmentTimesFont = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -345,7 +346,8 @@
             this.cmbAccuracy.Items.AddRange(new object[] {
             "",
             ".2",
-            ".23"});
+            ".23",
+            ".234"});
             this.cmbAccuracy.Location = new System.Drawing.Point(291, 115);
             this.cmbAccuracy.Name = "cmbAccuracy";
             this.cmbAccuracy.Size = new System.Drawing.Size(139, 21);
@@ -545,7 +547,8 @@
             this.cmbSegmentAccuracy.Items.AddRange(new object[] {
             "",
             ".2",
-            ".23"});
+            ".23",
+            ".234"});
             this.cmbSegmentAccuracy.Location = new System.Drawing.Point(291, 62);
             this.cmbSegmentAccuracy.Name = "cmbSegmentAccuracy";
             this.cmbSegmentAccuracy.Size = new System.Drawing.Size(139, 21);
@@ -789,59 +792,73 @@
             // 
             // tableLayoutPanel7
             // 
-            this.tableLayoutPanel7.ColumnCount = 3;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel7.Controls.Add(this.btnSegmentTimesHundredths, 2, 0);
-            this.tableLayoutPanel7.Controls.Add(this.btnSegmentTimesTenths, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.btnSegmentTimesSeconds, 0, 0);
+            this.tableLayoutPanel7.ColumnCount = 4;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel7.Controls.Add(this.rdoSegmentTimesMilliseconds, 3, 0);
+            this.tableLayoutPanel7.Controls.Add(this.rdoSegmentTimesHundredths, 2, 0);
+            this.tableLayoutPanel7.Controls.Add(this.rdoSegmentTimesTenths, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.rdoSegmentTimesSeconds, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(421, 26);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
-            // btnSegmentTimesHundredths
+            // rdoSegmentTimesMilliseconds
             // 
-            this.btnSegmentTimesHundredths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSegmentTimesHundredths.AutoSize = true;
-            this.btnSegmentTimesHundredths.Location = new System.Drawing.Point(283, 4);
-            this.btnSegmentTimesHundredths.Name = "btnSegmentTimesHundredths";
-            this.btnSegmentTimesHundredths.Size = new System.Drawing.Size(135, 17);
-            this.btnSegmentTimesHundredths.TabIndex = 2;
-            this.btnSegmentTimesHundredths.TabStop = true;
-            this.btnSegmentTimesHundredths.Text = "Hundredths";
-            this.btnSegmentTimesHundredths.UseVisualStyleBackColor = true;
-            this.btnSegmentTimesHundredths.CheckedChanged += new System.EventHandler(this.btnSegmentTimesHundredths_CheckedChanged);
+            this.rdoSegmentTimesMilliseconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdoSegmentTimesMilliseconds.AutoSize = true;
+            this.rdoSegmentTimesMilliseconds.Location = new System.Drawing.Point(318, 4);
+            this.rdoSegmentTimesMilliseconds.Name = "rdoSegmentTimesMilliseconds";
+            this.rdoSegmentTimesMilliseconds.Size = new System.Drawing.Size(100, 17);
+            this.rdoSegmentTimesMilliseconds.TabIndex = 3;
+            this.rdoSegmentTimesMilliseconds.TabStop = true;
+            this.rdoSegmentTimesMilliseconds.Text = "Milliseconds";
+            this.rdoSegmentTimesMilliseconds.UseVisualStyleBackColor = true;
             // 
-            // btnSegmentTimesTenths
+            // rdoSegmentTimesHundredths
             // 
-            this.btnSegmentTimesTenths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSegmentTimesTenths.AutoSize = true;
-            this.btnSegmentTimesTenths.Location = new System.Drawing.Point(143, 4);
-            this.btnSegmentTimesTenths.Name = "btnSegmentTimesTenths";
-            this.btnSegmentTimesTenths.Size = new System.Drawing.Size(134, 17);
-            this.btnSegmentTimesTenths.TabIndex = 1;
-            this.btnSegmentTimesTenths.TabStop = true;
-            this.btnSegmentTimesTenths.Text = "Tenths";
-            this.btnSegmentTimesTenths.UseVisualStyleBackColor = true;
+            this.rdoSegmentTimesHundredths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdoSegmentTimesHundredths.AutoSize = true;
+            this.rdoSegmentTimesHundredths.Location = new System.Drawing.Point(213, 4);
+            this.rdoSegmentTimesHundredths.Name = "rdoSegmentTimesHundredths";
+            this.rdoSegmentTimesHundredths.Size = new System.Drawing.Size(99, 17);
+            this.rdoSegmentTimesHundredths.TabIndex = 2;
+            this.rdoSegmentTimesHundredths.TabStop = true;
+            this.rdoSegmentTimesHundredths.Text = "Hundredths";
+            this.rdoSegmentTimesHundredths.UseVisualStyleBackColor = true;
+            this.rdoSegmentTimesHundredths.CheckedChanged += new System.EventHandler(this.rdoSegmentTimesHundredths_CheckedChanged);
             // 
-            // btnSegmentTimesSeconds
+            // rdoSegmentTimesTenths
             // 
-            this.btnSegmentTimesSeconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSegmentTimesSeconds.AutoSize = true;
-            this.btnSegmentTimesSeconds.Location = new System.Drawing.Point(3, 4);
-            this.btnSegmentTimesSeconds.Name = "btnSegmentTimesSeconds";
-            this.btnSegmentTimesSeconds.Size = new System.Drawing.Size(134, 17);
-            this.btnSegmentTimesSeconds.TabIndex = 0;
-            this.btnSegmentTimesSeconds.TabStop = true;
-            this.btnSegmentTimesSeconds.Text = "Seconds";
-            this.btnSegmentTimesSeconds.UseVisualStyleBackColor = true;
-            this.btnSegmentTimesSeconds.CheckedChanged += new System.EventHandler(this.btnSegmentTimesSeconds_CheckedChanged);
+            this.rdoSegmentTimesTenths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdoSegmentTimesTenths.AutoSize = true;
+            this.rdoSegmentTimesTenths.Location = new System.Drawing.Point(108, 4);
+            this.rdoSegmentTimesTenths.Name = "rdoSegmentTimesTenths";
+            this.rdoSegmentTimesTenths.Size = new System.Drawing.Size(99, 17);
+            this.rdoSegmentTimesTenths.TabIndex = 1;
+            this.rdoSegmentTimesTenths.TabStop = true;
+            this.rdoSegmentTimesTenths.Text = "Tenths";
+            this.rdoSegmentTimesTenths.UseVisualStyleBackColor = true;
+            this.rdoSegmentTimesTenths.CheckedChanged += new System.EventHandler(this.rdoSegmentTimesTenths_CheckedChanged);
+            // 
+            // rdoSegmentTimesSeconds
+            // 
+            this.rdoSegmentTimesSeconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdoSegmentTimesSeconds.AutoSize = true;
+            this.rdoSegmentTimesSeconds.Location = new System.Drawing.Point(3, 4);
+            this.rdoSegmentTimesSeconds.Name = "rdoSegmentTimesSeconds";
+            this.rdoSegmentTimesSeconds.Size = new System.Drawing.Size(99, 17);
+            this.rdoSegmentTimesSeconds.TabIndex = 0;
+            this.rdoSegmentTimesSeconds.TabStop = true;
+            this.rdoSegmentTimesSeconds.Text = "Seconds";
+            this.rdoSegmentTimesSeconds.UseVisualStyleBackColor = true;
+            this.rdoSegmentTimesSeconds.CheckedChanged += new System.EventHandler(this.rdoSegmentTimesSeconds_CheckedChanged);
             // 
             // lblSegmentTimesFont
             // 
@@ -1171,9 +1188,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.RadioButton btnSegmentTimesHundredths;
-        private System.Windows.Forms.RadioButton btnSegmentTimesTenths;
-        private System.Windows.Forms.RadioButton btnSegmentTimesSeconds;
+        private System.Windows.Forms.RadioButton rdoSegmentTimesHundredths;
+        private System.Windows.Forms.RadioButton rdoSegmentTimesTenths;
+        private System.Windows.Forms.RadioButton rdoSegmentTimesSeconds;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TrackBar trkSegmentTimerRatio;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -1222,5 +1239,6 @@
         private System.Windows.Forms.TrackBar trkSegmentDecimalsSize;
         private System.Windows.Forms.ComboBox cmbAccuracy;
         private System.Windows.Forms.ComboBox cmbSegmentAccuracy;
+        private System.Windows.Forms.RadioButton rdoSegmentTimesMilliseconds;
     }
 }
