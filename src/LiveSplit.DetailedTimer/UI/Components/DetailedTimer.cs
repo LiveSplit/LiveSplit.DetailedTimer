@@ -51,7 +51,7 @@ public class DetailedTimer : IComponent
 
     public IDictionary<string, Action> ContextMenuControls => null;
 
-    private Regex SubsplitRegex = new Regex(@"^{(.+)}\s*(.+)$", RegexOptions.Compiled);
+    private readonly Regex SubsplitRegex = new Regex(@"^{(.+)}\s*(.+)$", RegexOptions.Compiled);
 
     public DetailedTimer(LiveSplitState state)
     {
@@ -71,7 +71,7 @@ public class DetailedTimer : IComponent
         state.ComparisonRenamed += state_ComparisonRenamed;
     }
 
-    void state_ComparisonRenamed(object sender, EventArgs e)
+    private void state_ComparisonRenamed(object sender, EventArgs e)
     {
         var args = (RenameEventArgs)e;
         if (Settings.Comparison == args.OldName)

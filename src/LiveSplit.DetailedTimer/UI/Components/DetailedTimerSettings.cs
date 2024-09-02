@@ -183,64 +183,64 @@ public partial class DetailedTimerSettings : UserControl
         cmbTimingMethod.DataBindings.Add("SelectedItem", this, "TimingMethod", false, DataSourceUpdateMode.OnPropertyChanged);
     }
 
-    void cmbTimingMethod_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbTimingMethod_SelectedIndexChanged(object sender, EventArgs e)
     {
         TimingMethod = cmbTimingMethod.SelectedItem.ToString();
     }
 
-    void cmbSegmentDigitsFormat_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbSegmentDigitsFormat_SelectedIndexChanged(object sender, EventArgs e)
     {
         SegmentDigitsFormat = cmbSegmentDigitsFormat.SelectedItem.ToString();
     }
 
-    void cmbSegmentAccuracy_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbSegmentAccuracy_SelectedIndexChanged(object sender, EventArgs e)
     {
         SegmentAccuracy = cmbSegmentAccuracy.SelectedItem.ToString();
     }
 
-    void cmbDigitsFormat_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbDigitsFormat_SelectedIndexChanged(object sender, EventArgs e)
     {
         DigitsFormat = cmbDigitsFormat.SelectedItem.ToString();
     }
 
-    void cmbAccuracy_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbAccuracy_SelectedIndexChanged(object sender, EventArgs e)
     {
         Accuracy = cmbAccuracy.SelectedItem.ToString();
     }
 
-    void chkSplitName_CheckedChanged(object sender, EventArgs e)
+    private void chkSplitName_CheckedChanged(object sender, EventArgs e)
     {
         label9.Enabled = label10.Enabled = lblSplitNameFont.Enabled = btnSplitNameColor.Enabled
             = btnSplitNameFont.Enabled = chkSplitName.Checked;
 
     }
 
-    void chkDisplayIcon_CheckedChanged(object sender, EventArgs e)
+    private void chkDisplayIcon_CheckedChanged(object sender, EventArgs e)
     {
         label7.Enabled = trkIconSize.Enabled = chkDisplayIcon.Checked;
     }
 
-    void chkOverrideTimerColors_CheckedChanged(object sender, EventArgs e)
+    private void chkOverrideTimerColors_CheckedChanged(object sender, EventArgs e)
     {
         label1.Enabled = btnTimerColor.Enabled = chkOverrideTimerColors.Checked;
     }
 
-    void chkHideComparison_CheckedChanged(object sender, EventArgs e)
+    private void chkHideComparison_CheckedChanged(object sender, EventArgs e)
     {
         cmbComparison2.Enabled = label13.Enabled = !chkHideComparison.Checked;
     }
 
-    void cmbComparison2_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbComparison2_SelectedIndexChanged(object sender, EventArgs e)
     {
         Comparison2 = cmbComparison2.SelectedItem.ToString();
     }
 
-    void cmbComparison_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbComparison_SelectedIndexChanged(object sender, EventArgs e)
     {
         Comparison = cmbComparison.SelectedItem.ToString();
     }
 
-    void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
+    private void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
     {
         var selectedText = cmbGradientType.SelectedItem.ToString();
         btnColor1.Visible = selectedText != "Plain" && !selectedText.Contains("Delta");
@@ -250,22 +250,22 @@ public partial class DetailedTimerSettings : UserControl
         GradientString = cmbGradientType.SelectedItem.ToString();
     }
 
-    void rdoSegmentTimesHundredths_CheckedChanged(object sender, EventArgs e)
+    private void rdoSegmentTimesHundredths_CheckedChanged(object sender, EventArgs e)
     {
         UpdateAccuracySegmentTimes();
     }
 
-    void rdoSegmentTimesTenths_CheckedChanged(object sender, EventArgs e)
+    private void rdoSegmentTimesTenths_CheckedChanged(object sender, EventArgs e)
     {
         UpdateAccuracySegmentTimes();
     }
 
-    void rdoSegmentTimesSeconds_CheckedChanged(object sender, EventArgs e)
+    private void rdoSegmentTimesSeconds_CheckedChanged(object sender, EventArgs e)
     {
         UpdateAccuracySegmentTimes();
     }
 
-    void UpdateAccuracySegmentTimes()
+    private void UpdateAccuracySegmentTimes()
     {
         if (rdoSegmentTimesSeconds.Checked)
             SegmentTimesAccuracy = TimeAccuracy.Seconds;
@@ -404,7 +404,7 @@ public partial class DetailedTimerSettings : UserControl
         SettingsHelper.ColorButtonClick((Button)sender, this);
     }
 
-    void DetailedTimerSettings_Load(object sender, EventArgs e)
+    private void DetailedTimerSettings_Load(object sender, EventArgs e)
     {
         chkHideComparison_CheckedChanged(null, null);
         chkOverrideTimerColors_CheckedChanged(null, null);
