@@ -12,8 +12,8 @@ namespace LiveSplit.UI.Components;
 
 public partial class DetailedTimerSettings : UserControl
 {
-    public float Height { get; set; }
-    public float Width { get; set; }
+    public new float Height { get; set; }
+    public new float Width { get; set; }
     public float SegmentTimerSizeRatio { get; set; }
     public LiveSplitState CurrentState { get; set; }
 
