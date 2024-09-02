@@ -15,7 +15,10 @@ public class DetailedTimerFactory : IComponentFactory
 
     public ComponentCategory Category => ComponentCategory.Timer;
 
-    public IComponent Create(LiveSplitState state) => new DetailedTimer(state);
+    public IComponent Create(LiveSplitState state)
+    {
+        return new DetailedTimer(state);
+    }
 
     public string UpdateName => ComponentName;
 
