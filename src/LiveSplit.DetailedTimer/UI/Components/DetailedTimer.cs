@@ -79,6 +79,7 @@ public class DetailedTimer : IComponent
             Settings.Comparison = args.NewName;
             ((LiveSplitState)sender).Layout.HasChanged = true;
         }
+
         if (Settings.Comparison2 == args.OldName)
         {
             Settings.Comparison2 = args.NewName;
@@ -101,6 +102,7 @@ public class DetailedTimer : IComponent
                 ImageAnimator.Animate(icon, (s, o) => { });
                 OldImage = icon;
             }
+
             var drawWidth = originalDrawSize;
             var drawHeight = originalDrawSize;
             if (icon.Width > icon.Height)
@@ -118,15 +120,17 @@ public class DetailedTimer : IComponent
 
             g.DrawImage(
                 icon,
-                7 + (originalDrawSize - drawWidth) / 2,
-                (height - originalDrawSize) / 2.0f + (originalDrawSize - drawHeight) / 2,
+                7 + ((originalDrawSize - drawWidth) / 2),
+                ((height - originalDrawSize) / 2.0f) + ((originalDrawSize - drawHeight) / 2),
                 drawWidth,
                 drawHeight);
 
             IconWidth = (int)(originalDrawSize + 7.5f);
         }
         else
+        {
             IconWidth = 0;
+        }
 
         InternalComponent.Settings.ShowGradient = Settings.TimerShowGradient;
         InternalComponent.Settings.OverrideSplitColors = Settings.OverrideTimerColors;
@@ -157,11 +161,13 @@ public class DetailedTimer : IComponent
             LabelSegment.ShadowColor = state.LayoutSettings.ShadowsColor;
             LabelSegment.OutlineColor = state.LayoutSettings.TextOutlineColor;
             if (Comparison != "None")
+            {
                 LabelSegment.Draw(g);
+            }
 
             LabelBest.Font = labelsFont;
             LabelBest.X = 5 + IconWidth;
-            LabelBest.Y = height * ((100f - Settings.SegmentTimerSizeRatio / 2f) / 100f);
+            LabelBest.Y = height * ((100f - (Settings.SegmentTimerSizeRatio / 2f)) / 100f);
             LabelBest.Width = width - SegmentTimer.ActualWidth - 5 - IconWidth;
             LabelBest.Height = height * (Settings.SegmentTimerSizeRatio / 200f);
             LabelBest.HorizontalAlignment = StringAlignment.Near;
@@ -171,7 +177,9 @@ public class DetailedTimer : IComponent
             LabelBest.ShadowColor = state.LayoutSettings.ShadowsColor;
             LabelBest.OutlineColor = state.LayoutSettings.TextOutlineColor;
             if (!HideComparison)
+            {
                 LabelBest.Draw(g);
+            }
 
             var offset = Math.Max(LabelSegment.ActualWidth, HideComparison ? 0 : LabelBest.ActualWidth) + 10;
 
@@ -196,7 +204,7 @@ public class DetailedTimer : IComponent
             {
                 BestSegmentTime.Font = timesFont;
                 BestSegmentTime.X = offset + IconWidth;
-                BestSegmentTime.Y = height * ((100f - Settings.SegmentTimerSizeRatio / 2f) / 100f);
+                BestSegmentTime.Y = height * ((100f - (Settings.SegmentTimerSizeRatio / 2f)) / 100f);
                 BestSegmentTime.Width = width - SegmentTimer.ActualWidth - offset - IconWidth;
                 BestSegmentTime.Height = height * (Settings.SegmentTimerSizeRatio / 200f);
                 BestSegmentTime.HorizontalAlignment = StringAlignment.Near;
@@ -208,6 +216,7 @@ public class DetailedTimer : IComponent
                 BestSegmentTime.IsMonospaced = true;
                 BestSegmentTime.Draw(g);
             }
+
             SplitName.Font = Settings.SplitNameFont;
             SplitName.X = IconWidth + 5;
             SplitName.Y = 0;
@@ -220,7 +229,9 @@ public class DetailedTimer : IComponent
             SplitName.ShadowColor = state.LayoutSettings.ShadowsColor;
             SplitName.OutlineColor = state.LayoutSettings.TextOutlineColor;
             if (Settings.ShowSplitName)
+            {
                 SplitName.Draw(g);
+            }
         }
     }
 
@@ -274,9 +285,13 @@ public class DetailedTimer : IComponent
         var Formatter = Settings.SegmentTimesFormatter;
         var timingMethod = state.CurrentTimingMethod;
         if (Settings.TimingMethod == "Real Time")
+        {
             timingMethod = TimingMethod.RealTime;
+        }
         else if (Settings.TimingMethod == "Game Time")
+        {
             timingMethod = TimingMethod.GameTime;
+        }
 
         if (state.CurrentSplitIndex >= 0)
         {
@@ -288,7 +303,9 @@ public class DetailedTimer : IComponent
             {
                 HideComparison = true;
                 if (!state.Run.Comparisons.Contains(Comparison) || Comparison == "None")
+                {
                     Comparison = state.CurrentComparison;
+                }
             }
             else if (!state.Run.Comparisons.Contains(Comparison) || Comparison == "None")
             {
@@ -296,7 +313,9 @@ public class DetailedTimer : IComponent
                 Comparison = Comparison2;
             }
             else if (Comparison == Comparison2)
+            {
                 HideComparison = true;
+            }
 
             ComparisonName = CompositeComparisons.GetShortComparisonName(Comparison);
             ComparisonName2 = CompositeComparisons.GetShortComparisonName(Comparison2);
@@ -304,14 +323,20 @@ public class DetailedTimer : IComponent
             TimeSpan? segmentTime = null;
 
             if (Comparison == BestSegmentsComparisonGenerator.ComparisonName)
+            {
                 segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
+            }
             else
             {
                 if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
+                {
                     segmentTime = state.Run[0].Comparisons[Comparison][timingMethod];
+                }
                 else if (state.CurrentSplitIndex > 0)
+                {
                     segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison][timingMethod]
                         - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison][timingMethod];
+                }
             }
 
             LabelSegment.Text = ComparisonName + ":";
@@ -327,18 +352,25 @@ public class DetailedTimer : IComponent
             {
                 TimeSpan? bestSegmentTime = null;
                 if (Comparison2 == BestSegmentsComparisonGenerator.ComparisonName)
+                {
                     bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
+                }
                 else
                 {
                     if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
+                    {
                         bestSegmentTime = state.Run[0].Comparisons[Comparison2][timingMethod];
+                    }
                     else if (state.CurrentSplitIndex > 0)
+                    {
                         bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison2][timingMethod]
                             - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][timingMethod];
+                    }
                 }
 
                 BestSegmentTime.Text = Formatter.Format(bestSegmentTime);
             }
+
             if (state.CurrentSplitIndex >= 0)
             {
                 string name = state.Run[state.CurrentSplitIndex + lastSplitOffset].Name;
@@ -346,18 +378,26 @@ public class DetailedTimer : IComponent
                 bool isSubsplit = name.StartsWith("-") && state.CurrentSplitIndex + lastSplitOffset < state.Run.Count - 1;
 
                 if (isSubsplit)
+                {
                     SplitName.Text = name.Substring(1);
+                }
                 else
                 {
                     Match match = SubsplitRegex.Match(name);
                     if (match.Success)
+                    {
                         SplitName.Text = match.Groups[2].Value;
+                    }
                     else
+                    {
                         SplitName.Text = name;
+                    }
                 }
             }
             else
+            {
                 SplitName.Text = "";
+            }
         }
 
         SegmentTimer.Settings.TimingMethod = Settings.TimingMethod;
@@ -372,10 +412,15 @@ public class DetailedTimer : IComponent
         if (Cache.HasChanged)
         {
             if (icon == null)
+            {
                 FrameCount = 0;
+            }
             else
+            {
                 FrameCount = icon.GetFrameCount(new FrameDimension(icon.FrameDimensionsList[0]));
+            }
         }
+
         Cache["SplitName"] = SplitName.Text;
         Cache["LabelSegment"] = LabelSegment.Text;
         Cache["LabelBest"] = LabelBest.Text;
@@ -386,9 +431,13 @@ public class DetailedTimer : IComponent
         if (InternalComponent.BigTextLabel.Brush != null && invalidator != null)
         {
             if (InternalComponent.BigTextLabel.Brush is LinearGradientBrush)
+            {
                 Cache["TimerColor"] = ((LinearGradientBrush)InternalComponent.BigTextLabel.Brush).LinearColors.First().ToArgb();
+            }
             else
+            {
                 Cache["TimerColor"] = InternalComponent.BigTextLabel.ForeColor.ToArgb();
+            }
         }
 
         if (invalidator != null && (Cache.HasChanged || FrameCount > 1))

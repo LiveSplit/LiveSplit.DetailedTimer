@@ -262,13 +262,22 @@ public partial class DetailedTimerSettings : UserControl
     private void UpdateAccuracySegmentTimes()
     {
         if (rdoSegmentTimesSeconds.Checked)
+        {
             SegmentTimesAccuracy = TimeAccuracy.Seconds;
+        }
         else if (rdoSegmentTimesTenths.Checked)
+        {
             SegmentTimesAccuracy = TimeAccuracy.Tenths;
+        }
         else if (rdoSegmentTimesHundredths.Checked)
+        {
             SegmentTimesAccuracy = TimeAccuracy.Hundredths;
+        }
         else
+        {
             SegmentTimesAccuracy = TimeAccuracy.Milliseconds;
+        }
+
         SegmentTimesFormatter.Accuracy = SegmentTimesAccuracy;
     }
 
@@ -408,12 +417,18 @@ public partial class DetailedTimerSettings : UserControl
         cmbComparison.Items.Add("Current Comparison");
         cmbComparison.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
         if (!cmbComparison.Items.Contains(Comparison))
+        {
             cmbComparison.Items.Add(Comparison);
+        }
+
         cmbComparison2.Items.Clear();
         cmbComparison2.Items.Add("Current Comparison");
         cmbComparison2.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
         if (!cmbComparison2.Items.Contains(Comparison2))
+        {
             cmbComparison2.Items.Add(Comparison2);
+        }
+
         rdoSegmentTimesMilliseconds.Checked = SegmentTimesAccuracy == TimeAccuracy.Milliseconds;
         rdoSegmentTimesHundredths.Checked = SegmentTimesAccuracy == TimeAccuracy.Hundredths;
         rdoSegmentTimesTenths.Checked = SegmentTimesAccuracy == TimeAccuracy.Tenths;
