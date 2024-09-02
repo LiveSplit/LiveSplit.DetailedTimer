@@ -51,7 +51,7 @@ public class DetailedTimer : IComponent
 
     public IDictionary<string, Action> ContextMenuControls => null;
 
-    private readonly Regex SubsplitRegex = new Regex(@"^{(.+)}\s*(.+)$", RegexOptions.Compiled);
+    private readonly Regex SubsplitRegex = new(@"^{(.+)}\s*(.+)$", RegexOptions.Compiled);
 
     public DetailedTimer(LiveSplitState state)
     {
@@ -91,10 +91,10 @@ public class DetailedTimer : IComponent
     {
         Timer.DrawBackground(g, InternalComponent.TimerColor, Settings.BackgroundColor, Settings.BackgroundColor2, width, height, Settings.BackgroundGradient);
 
-        var lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
+        int lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
 
-        var originalDrawSize = Math.Min(Settings.IconSize, width - 14);
-        var icon = state.CurrentSplitIndex >= 0 ? state.Run[state.CurrentSplitIndex + lastSplitOffset].Icon : null;
+        float originalDrawSize = Math.Min(Settings.IconSize, width - 14);
+        Image icon = state.CurrentSplitIndex >= 0 ? state.Run[state.CurrentSplitIndex + lastSplitOffset].Icon : null;
         if (Settings.DisplayIcon && icon != null)
         {
             if (OldImage != icon)
@@ -103,16 +103,16 @@ public class DetailedTimer : IComponent
                 OldImage = icon;
             }
 
-            var drawWidth = originalDrawSize;
-            var drawHeight = originalDrawSize;
+            float drawWidth = originalDrawSize;
+            float drawHeight = originalDrawSize;
             if (icon.Width > icon.Height)
             {
-                var ratio = icon.Height / (float)icon.Width;
+                float ratio = icon.Height / (float)icon.Width;
                 drawHeight *= ratio;
             }
             else
             {
-                var ratio = icon.Width / (float)icon.Height;
+                float ratio = icon.Width / (float)icon.Height;
                 drawWidth *= ratio;
             }
 
@@ -181,7 +181,7 @@ public class DetailedTimer : IComponent
                 LabelBest.Draw(g);
             }
 
-            var offset = Math.Max(LabelSegment.ActualWidth, HideComparison ? 0 : LabelBest.ActualWidth) + 10;
+            float offset = Math.Max(LabelSegment.ActualWidth, HideComparison ? 0 : LabelBest.ActualWidth) + 10;
 
             if (Comparison != "None")
             {
@@ -238,7 +238,7 @@ public class DetailedTimer : IComponent
     public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
     {
         DrawGeneral(g, state, width, VerticalHeight);
-        var oldMatrix = g.Transform;
+        Matrix oldMatrix = g.Transform;
         InternalComponent.Settings.TimerHeight = VerticalHeight * ((100f - Settings.SegmentTimerSizeRatio) / 100f);
         InternalComponent.DrawVertical(g, state, width, clipRegion);
         g.Transform = oldMatrix;
@@ -251,7 +251,7 @@ public class DetailedTimer : IComponent
     public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
     {
         DrawGeneral(g, state, HorizontalWidth, height);
-        var oldMatrix = g.Transform;
+        Matrix oldMatrix = g.Transform;
         InternalComponent.Settings.TimerWidth = HorizontalWidth;
         InternalComponent.DrawHorizontal(g, state, height * ((100f - Settings.SegmentTimerSizeRatio) / 100f), clipRegion);
         g.Transform = oldMatrix;
@@ -281,9 +281,9 @@ public class DetailedTimer : IComponent
 
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
-        var lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
-        var Formatter = Settings.SegmentTimesFormatter;
-        var timingMethod = state.CurrentTimingMethod;
+        int lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
+        TimeFormatters.GeneralTimeFormatter Formatter = Settings.SegmentTimesFormatter;
+        TimingMethod timingMethod = state.CurrentTimingMethod;
         if (Settings.TimingMethod == "Real Time")
         {
             timingMethod = TimingMethod.RealTime;
@@ -405,7 +405,7 @@ public class DetailedTimer : IComponent
         SegmentTimer.Update(null, state, width, height, mode);
         InternalComponent.Update(null, state, width, height, mode);
 
-        var icon = state.CurrentSplitIndex >= 0 ? state.Run[state.CurrentSplitIndex + lastSplitOffset].Icon : null;
+        Image icon = state.CurrentSplitIndex >= 0 ? state.Run[state.CurrentSplitIndex + lastSplitOffset].Icon : null;
 
         Cache.Restart();
         Cache["SplitIcon"] = icon;

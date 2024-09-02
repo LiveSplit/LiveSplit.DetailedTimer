@@ -48,7 +48,7 @@ public partial class DetailedTimerSettings : UserControl
         get => DigitsFormat + Accuracy;
         set
         {
-            var decimalIndex = value.IndexOf('.');
+            int decimalIndex = value.IndexOf('.');
             if (decimalIndex < 0)
             {
                 DigitsFormat = value;
@@ -68,7 +68,7 @@ public partial class DetailedTimerSettings : UserControl
         get => SegmentDigitsFormat + SegmentAccuracy;
         set
         {
-            var decimalIndex = value.IndexOf('.');
+            int decimalIndex = value.IndexOf('.');
             if (decimalIndex < 0)
             {
                 SegmentDigitsFormat = value;
@@ -236,7 +236,7 @@ public partial class DetailedTimerSettings : UserControl
 
     private void cmbGradientType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var selectedText = cmbGradientType.SelectedItem.ToString();
+        string selectedText = cmbGradientType.SelectedItem.ToString();
         btnColor1.Visible = selectedText != "Plain" && !selectedText.Contains("Delta");
         btnColor2.Visible = !selectedText.Contains("Delta");
         btnColor2.DataBindings.Clear();
@@ -334,7 +334,7 @@ public partial class DetailedTimerSettings : UserControl
         {
             DigitsFormat = "1";
             SegmentDigitsFormat = "1";
-            var timerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
+            TimeAccuracy timerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
             switch (timerAccuracy)
             {
                 case TimeAccuracy.Seconds: Accuracy = ""; break;
@@ -344,7 +344,7 @@ public partial class DetailedTimerSettings : UserControl
                 default: Accuracy = ".23"; break;
             }
 
-            var segmentTimerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
+            TimeAccuracy segmentTimerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
             switch (segmentTimerAccuracy)
             {
                 case TimeAccuracy.Seconds: SegmentAccuracy = ""; break;
@@ -358,7 +358,7 @@ public partial class DetailedTimerSettings : UserControl
 
     public XmlNode GetSettings(XmlDocument document)
     {
-        var parent = document.CreateElement("Settings");
+        XmlElement parent = document.CreateElement("Settings");
         CreateSettingsNode(document, parent);
         return parent;
     }
@@ -454,7 +454,7 @@ public partial class DetailedTimerSettings : UserControl
 
     private void btnSegmentLabelsFont_Click(object sender, EventArgs e)
     {
-        var dialog = SettingsHelper.GetFontDialog(SegmentLabelsFont, 7, 26);
+        CustomFontDialog.FontDialog dialog = SettingsHelper.GetFontDialog(SegmentLabelsFont, 7, 26);
         dialog.FontChanged += (s, ev) => SegmentLabelsFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
         dialog.ShowDialog(this);
         lblSegmentLabelsFont.Text = SegmentLabelsFontString;
@@ -462,14 +462,14 @@ public partial class DetailedTimerSettings : UserControl
 
     private void btnSegmentTimesFont_Click(object sender, EventArgs e)
     {
-        var dialog = SettingsHelper.GetFontDialog(SegmentTimesFont, 7, 26);
+        CustomFontDialog.FontDialog dialog = SettingsHelper.GetFontDialog(SegmentTimesFont, 7, 26);
         dialog.FontChanged += (s, ev) => SegmentTimesFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
         dialog.ShowDialog(this);
         lblSegmentTimesFont.Text = SegmentTimesFontString;
     }
     private void btnSplitNameFont_Click(object sender, EventArgs e)
     {
-        var dialog = SettingsHelper.GetFontDialog(SplitNameFont, 7, 26);
+        CustomFontDialog.FontDialog dialog = SettingsHelper.GetFontDialog(SplitNameFont, 7, 26);
         dialog.FontChanged += (s, ev) => SplitNameFont = ((CustomFontDialog.FontChangedEventArgs)ev).NewFont;
         dialog.ShowDialog(this);
         lblSplitNameFont.Text = SplitNameFontString;

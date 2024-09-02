@@ -9,7 +9,7 @@ public class SegmentTimer : Timer
     public override TimeSpan? GetTime(LiveSplitState state, TimingMethod method)
     {
         TimeSpan? lastSplit = TimeSpan.Zero;
-        var runEndedDelay = state.CurrentPhase == TimerPhase.Ended ? 1 : 0;
+        int runEndedDelay = state.CurrentPhase == TimerPhase.Ended ? 1 : 0;
         if (state.CurrentSplitIndex > 0 + runEndedDelay)
         {
             if (state.Run[state.CurrentSplitIndex - 1 - runEndedDelay].SplitTime[method] != null)
