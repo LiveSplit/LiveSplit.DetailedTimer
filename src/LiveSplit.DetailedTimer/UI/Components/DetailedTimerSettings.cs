@@ -335,24 +335,23 @@ public partial class DetailedTimerSettings : UserControl
             DigitsFormat = "1";
             SegmentDigitsFormat = "1";
             TimeAccuracy timerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["TimerAccuracy"]);
-            switch (timerAccuracy)
+            Accuracy = timerAccuracy switch
             {
-                case TimeAccuracy.Seconds: Accuracy = ""; break;
-                case TimeAccuracy.Tenths: Accuracy = ".2"; break;
-                case TimeAccuracy.Hundredths: Accuracy = ".23"; break;
-                case TimeAccuracy.Milliseconds: Accuracy = ".234"; break;
-                default: Accuracy = ".23"; break;
-            }
-
+                TimeAccuracy.Seconds => "",
+                TimeAccuracy.Tenths => ".2",
+                TimeAccuracy.Hundredths => ".23",
+                TimeAccuracy.Milliseconds => ".234",
+                _ => ".23",
+            };
             TimeAccuracy segmentTimerAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimerAccuracy"]);
-            switch (segmentTimerAccuracy)
+            SegmentAccuracy = segmentTimerAccuracy switch
             {
-                case TimeAccuracy.Seconds: SegmentAccuracy = ""; break;
-                case TimeAccuracy.Tenths: SegmentAccuracy = ".2"; break;
-                case TimeAccuracy.Hundredths: SegmentAccuracy = ".23"; break;
-                case TimeAccuracy.Milliseconds: SegmentAccuracy = ".234"; break;
-                default: SegmentAccuracy = ".23"; break;
-            }
+                TimeAccuracy.Seconds => "",
+                TimeAccuracy.Tenths => ".2",
+                TimeAccuracy.Hundredths => ".23",
+                TimeAccuracy.Milliseconds => ".234",
+                _ => ".23",
+            };
         }
     }
 
