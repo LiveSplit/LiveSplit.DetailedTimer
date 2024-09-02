@@ -55,7 +55,7 @@ public class DetailedTimer : IComponent
 
     public DetailedTimer(LiveSplitState state)
     {
-        InternalComponent = new LiveSplit.UI.Components.Timer();
+        InternalComponent = new Timer();
         SegmentTimer = new SegmentTimer();
         Settings = new DetailedTimerSettings()
         {
