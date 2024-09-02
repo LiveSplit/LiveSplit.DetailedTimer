@@ -56,8 +56,8 @@ public partial class DetailedTimerSettings : UserControl
             }
             else
             {
-                DigitsFormat = value.Substring(0, decimalIndex);
-                Accuracy = value.Substring(decimalIndex);
+                DigitsFormat = value[..decimalIndex];
+                Accuracy = value[decimalIndex..];
             }
         }
     }
@@ -76,8 +76,8 @@ public partial class DetailedTimerSettings : UserControl
             }
             else
             {
-                SegmentDigitsFormat = value.Substring(0, decimalIndex);
-                SegmentAccuracy = value.Substring(decimalIndex);
+                SegmentDigitsFormat = value[..decimalIndex];
+                SegmentAccuracy = value[decimalIndex..];
             }
         }
     }

@@ -15,4 +15,8 @@
     <ProjectReference Include="$(ComponentsPath)\LiveSplit.Timer\src\LiveSplit.Timer\LiveSplit.Timer.csproj" Private="false" ExcludeAssets="runtime" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="PolySharp" Version="1.14.1" PrivateAssets="all" />
+  </ItemGroup>
+
 </Project>

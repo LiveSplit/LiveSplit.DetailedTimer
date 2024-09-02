@@ -379,7 +379,7 @@ public class DetailedTimer : IComponent
 
                 if (isSubsplit)
                 {
-                    SplitName.Text = name.Substring(1);
+                    SplitName.Text = name[1..];
                 }
                 else
                 {
