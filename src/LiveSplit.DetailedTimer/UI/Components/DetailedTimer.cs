@@ -430,9 +430,9 @@ public class DetailedTimer : IComponent
         Cache["InternalComponentText"] = InternalComponent.BigTextLabel.Text + InternalComponent.SmallTextLabel.Text;
         if (InternalComponent.BigTextLabel.Brush != null && invalidator != null)
         {
-            if (InternalComponent.BigTextLabel.Brush is LinearGradientBrush)
+            if (InternalComponent.BigTextLabel.Brush is LinearGradientBrush brush)
             {
-                Cache["TimerColor"] = ((LinearGradientBrush)InternalComponent.BigTextLabel.Brush).LinearColors.First().ToArgb();
+                Cache["TimerColor"] = brush.LinearColors.First().ToArgb();
             }
             else
             {

@@ -415,7 +415,7 @@ public partial class DetailedTimerSettings : UserControl
         chkSplitName_CheckedChanged(null, null);
         cmbComparison.Items.Clear();
         cmbComparison.Items.Add("Current Comparison");
-        cmbComparison.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
+        cmbComparison.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x is not BestSplitTimesComparisonGenerator.ComparisonName and not NoneComparisonGenerator.ComparisonName).ToArray());
         if (!cmbComparison.Items.Contains(Comparison))
         {
             cmbComparison.Items.Add(Comparison);
@@ -423,7 +423,7 @@ public partial class DetailedTimerSettings : UserControl
 
         cmbComparison2.Items.Clear();
         cmbComparison2.Items.Add("Current Comparison");
-        cmbComparison2.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x != BestSplitTimesComparisonGenerator.ComparisonName && x != NoneComparisonGenerator.ComparisonName).ToArray());
+        cmbComparison2.Items.AddRange(CurrentState.Run.Comparisons.Where(x => x is not BestSplitTimesComparisonGenerator.ComparisonName and not NoneComparisonGenerator.ComparisonName).ToArray());
         if (!cmbComparison2.Items.Contains(Comparison2))
         {
             cmbComparison2.Items.Add(Comparison2);
