@@ -10,6 +10,7 @@ using System.Xml;
 
 using LiveSplit.Model;
 using LiveSplit.Model.Comparisons;
+using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components;
 
@@ -282,7 +283,7 @@ public class DetailedTimer : IComponent
     public void Update(IInvalidator invalidator, LiveSplitState state, float width, float height, LayoutMode mode)
     {
         int lastSplitOffset = state.CurrentSplitIndex == state.Run.Count ? -1 : 0;
-        TimeFormatters.GeneralTimeFormatter Formatter = Settings.SegmentTimesFormatter;
+        GeneralTimeFormatter formatter = Settings.SegmentTimesFormatter;
         TimingMethod timingMethod = state.CurrentTimingMethod;
         if (Settings.TimingMethod == "Real Time")
         {
@@ -345,7 +346,7 @@ public class DetailedTimer : IComponent
 
             if (Comparison != "None")
             {
-                SegmentTime.Text = Formatter.Format(segmentTime);
+                SegmentTime.Text = formatter.Format(segmentTime);
             }
 
             if (!HideComparison)
@@ -368,7 +369,7 @@ public class DetailedTimer : IComponent
                     }
                 }
 
-                BestSegmentTime.Text = Formatter.Format(bestSegmentTime);
+                BestSegmentTime.Text = formatter.Format(bestSegmentTime);
             }
 
             if (state.CurrentSplitIndex >= 0)
