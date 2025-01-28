@@ -308,7 +308,9 @@ public partial class DetailedTimerSettings : UserControl
         Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
         Comparison2 = SettingsHelper.ParseString(element["Comparison2"], "Best Segments");
         HideComparison = SettingsHelper.ParseBool(element["HideComparison"], false);
+
         SegmentTimesAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimesAccuracy"]);
+        SegmentTimesFormatter.Accuracy = SegmentTimesAccuracy;
 
         if (version >= new Version(1, 3))
         {
