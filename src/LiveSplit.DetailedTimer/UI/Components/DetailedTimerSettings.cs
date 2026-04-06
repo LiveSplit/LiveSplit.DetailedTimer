@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 
-using LiveSplit.Localization;
 using LiveSplit.Model;
 using LiveSplit.Model.Comparisons;
 using LiveSplit.TimeFormatters;
@@ -13,8 +12,6 @@ namespace LiveSplit.UI.Components;
 
 public partial class DetailedTimerSettings : UserControl
 {
-    private static string T(string source) => UiLocalizer.Translate(source, LanguageResolver.ResolveCurrentCultureLanguage());
-
     public new float Height { get; set; }
     public new float Width { get; set; }
     public float SegmentTimerSizeRatio { get; set; }
@@ -444,7 +441,7 @@ public partial class DetailedTimerSettings : UserControl
             trkSize.Minimum = 50;
             trkSize.Maximum = 500;
             trkSize.DataBindings.Add("Value", this, "Width", false, DataSourceUpdateMode.OnPropertyChanged);
-            lblSize.Text = T("Width:");
+            lblSize.Text = "Width:";
         }
         else
         {
@@ -452,7 +449,7 @@ public partial class DetailedTimerSettings : UserControl
             trkSize.Minimum = 20;
             trkSize.Maximum = 150;
             trkSize.DataBindings.Add("Value", this, "Height", false, DataSourceUpdateMode.OnPropertyChanged);
-            lblSize.Text = T("Height:");
+            lblSize.Text = "Height:";
         }
     }
 
