@@ -211,18 +211,12 @@ namespace LiveSplit.UI.Components
             this.cmbGradientType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGradientType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGradientType.FormattingEnabled = true;
-            this.cmbGradientType.Items.AddRange(new object[] {
-            "Plain",
-            "Vertical",
-            "Horizontal",
-            "Plain With Delta Color",
-            "Vertical With Delta Color",
-            "Horizontal With Delta Color"});
             this.cmbGradientType.Location = new System.Drawing.Point(214, 4);
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(228, 21);
             this.cmbGradientType.TabIndex = 2;
             this.cmbGradientType.SelectedIndexChanged += new System.EventHandler(this.cmbGradientType_SelectedIndexChanged);
+            this.cmbGradientType.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cmbGradientType_Format);
             // 
             // groupBox9
             // 

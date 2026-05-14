@@ -165,7 +165,7 @@ public partial class DetailedTimerSettings : UserControl
         lblSplitNameFont.DataBindings.Add("Text", this, "SplitNameFontString", false, DataSourceUpdateMode.OnPropertyChanged);
         chkDisplayIcon.DataBindings.Add("Checked", this, "DisplayIcon", false, DataSourceUpdateMode.OnPropertyChanged);
         trkIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
-        cmbGradientType.DataBindings.Add("SelectedItem", this, "GradientString", false, DataSourceUpdateMode.OnPropertyChanged);
+        cmbGradientType.DataBindings.Add("SelectedItem", this, "BackgroundGradient", false, DataSourceUpdateMode.OnPropertyChanged);
         btnColor1.DataBindings.Add("BackColor", this, "BackgroundColor", false, DataSourceUpdateMode.OnPropertyChanged);
         btnColor2.DataBindings.Add("BackColor", this, "BackgroundColor2", false, DataSourceUpdateMode.OnPropertyChanged);
         cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -244,7 +244,12 @@ public partial class DetailedTimerSettings : UserControl
         btnColor2.Visible = !selectedText.Contains("Delta");
         btnColor2.DataBindings.Clear();
         btnColor2.DataBindings.Add("BackColor", this, btnColor1.Visible ? "BackgroundColor2" : "BackgroundColor", false, DataSourceUpdateMode.OnPropertyChanged);
-        GradientString = cmbGradientType.SelectedItem.ToString();
+        BackgroundGradient = (DeltasGradientType)cmbGradientType.SelectedItem;
+    }
+
+    private void cmbGradientType_Format(object sender, ListControlConvertEventArgs e)
+    {
+        e.Value = TimerSettings.GetBackgroundTypeString((DeltasGradientType)e.ListItem);
     }
 
     private void rdoSegmentTimesHundredths_CheckedChanged(object sender, EventArgs e)
@@ -307,7 +312,7 @@ public partial class DetailedTimerSettings : UserControl
         SplitNameColor = SettingsHelper.ParseColor(element["SplitNameColor"], Color.FromArgb(255, 255, 255));
         BackgroundColor = SettingsHelper.ParseColor(element["BackgroundColor"], Color.Transparent);
         BackgroundColor2 = SettingsHelper.ParseColor(element["BackgroundColor2"], Color.Transparent);
-        GradientString = SettingsHelper.ParseString(element["BackgroundGradient"], DeltasGradientType.Plain.ToString());
+        BackgroundGradient = SettingsHelper.ParseEnum<DeltasGradientType>(element["BackgroundGradient"], DeltasGradientType.Plain);
         Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
         Comparison2 = SettingsHelper.ParseString(element["Comparison2"], "Best Segments");
         HideComparison = SettingsHelper.ParseBool(element["HideComparison"], false);
@@ -454,6 +459,10 @@ public partial class DetailedTimerSettings : UserControl
             trkSize.DataBindings.Add("Value", this, "Height", false, DataSourceUpdateMode.OnPropertyChanged);
             lblSize.Text = T("Height:");
         }
+
+        DeltasGradientType tempType = BackgroundGradient;
+        cmbGradientType.DataSource = Enum.GetValues(typeof(DeltasGradientType));
+        cmbGradientType.SelectedItem = tempType;
     }
 
     private void btnSegmentLabelsFont_Click(object sender, EventArgs e)
