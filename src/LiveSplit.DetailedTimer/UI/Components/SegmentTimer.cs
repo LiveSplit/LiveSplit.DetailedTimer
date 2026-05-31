@@ -1,6 +1,5 @@
-﻿using System;
-
-using LiveSplit.Model;
+﻿using LiveSplit.Model;
+using System;
 
 namespace LiveSplit.UI.Components;
 
@@ -12,14 +11,7 @@ public class SegmentTimer : Timer
         int runEndedDelay = state.CurrentPhase == TimerPhase.Ended ? 1 : 0;
         if (state.CurrentSplitIndex > 0 + runEndedDelay)
         {
-            if (state.Run[state.CurrentSplitIndex - 1 - runEndedDelay].SplitTime[method] != null)
-            {
-                lastSplit = state.Run[state.CurrentSplitIndex - 1 - runEndedDelay].SplitTime[method].Value;
-            }
-            else
-            {
-                lastSplit = null;
-            }
+            lastSplit = state.Run[state.CurrentSplitIndex - 1 - runEndedDelay].SplitTime[method];
         }
 
         if (state.CurrentPhase == TimerPhase.NotRunning)

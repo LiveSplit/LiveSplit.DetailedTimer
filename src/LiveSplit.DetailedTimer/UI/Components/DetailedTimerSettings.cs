@@ -1,13 +1,12 @@
-﻿using System;
+﻿using LiveSplit.Localization;
+using LiveSplit.Model;
+using LiveSplit.Model.Comparisons;
+using LiveSplit.TimeFormatters;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-
-using LiveSplit.Localization;
-using LiveSplit.Model;
-using LiveSplit.Model.Comparisons;
-using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components;
 
@@ -269,22 +268,11 @@ public partial class DetailedTimerSettings : UserControl
 
     private void UpdateAccuracySegmentTimes()
     {
-        if (rdoSegmentTimesSeconds.Checked)
-        {
-            SegmentTimesAccuracy = TimeAccuracy.Seconds;
-        }
-        else if (rdoSegmentTimesTenths.Checked)
-        {
-            SegmentTimesAccuracy = TimeAccuracy.Tenths;
-        }
-        else if (rdoSegmentTimesHundredths.Checked)
-        {
-            SegmentTimesAccuracy = TimeAccuracy.Hundredths;
-        }
-        else
-        {
-            SegmentTimesAccuracy = TimeAccuracy.Milliseconds;
-        }
+        SegmentTimesAccuracy =
+            rdoSegmentTimesSeconds.Checked ? TimeAccuracy.Seconds
+            : rdoSegmentTimesTenths.Checked ? TimeAccuracy.Tenths
+            : rdoSegmentTimesHundredths.Checked ? TimeAccuracy.Hundredths
+            : TimeAccuracy.Milliseconds;
 
         SegmentTimesFormatter.Accuracy = SegmentTimesAccuracy;
     }
@@ -312,7 +300,7 @@ public partial class DetailedTimerSettings : UserControl
         SplitNameColor = SettingsHelper.ParseColor(element["SplitNameColor"], Color.FromArgb(255, 255, 255));
         BackgroundColor = SettingsHelper.ParseColor(element["BackgroundColor"], Color.Transparent);
         BackgroundColor2 = SettingsHelper.ParseColor(element["BackgroundColor2"], Color.Transparent);
-        BackgroundGradient = SettingsHelper.ParseEnum<DeltasGradientType>(element["BackgroundGradient"], DeltasGradientType.Plain);
+        BackgroundGradient = SettingsHelper.ParseEnum(element["BackgroundGradient"], DeltasGradientType.Plain);
         Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
         Comparison2 = SettingsHelper.ParseString(element["Comparison2"], "Best Segments");
         HideComparison = SettingsHelper.ParseBool(element["HideComparison"], false);
