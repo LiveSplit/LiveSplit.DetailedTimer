@@ -1,3 +1,6 @@
+﻿using LiveSplit.Model;
+using LiveSplit.Model.Comparisons;
+using LiveSplit.TimeFormatters;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,10 +10,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
-
-using LiveSplit.Model;
-using LiveSplit.Model.Comparisons;
-using LiveSplit.TimeFormatters;
 
 namespace LiveSplit.UI.Components;
 
@@ -386,14 +385,7 @@ public class DetailedTimer : IComponent
                 else
                 {
                     Match match = SubsplitRegex.Match(name);
-                    if (match.Success)
-                    {
-                        SplitName.Text = match.Groups[2].Value;
-                    }
-                    else
-                    {
-                        SplitName.Text = name;
-                    }
+                    SplitName.Text = match.Success ? match.Groups[2].Value : name;
                 }
             }
             else
@@ -413,14 +405,7 @@ public class DetailedTimer : IComponent
         Cache["SplitIcon"] = icon;
         if (Cache.HasChanged)
         {
-            if (icon == null)
-            {
-                FrameCount = 0;
-            }
-            else
-            {
-                FrameCount = icon.GetFrameCount(new FrameDimension(icon.FrameDimensionsList[0]));
-            }
+            FrameCount = icon == null ? 0 : icon.GetFrameCount(new FrameDimension(icon.FrameDimensionsList[0]));
         }
 
         Cache["SplitName"] = SplitName.Text;
@@ -432,14 +417,9 @@ public class DetailedTimer : IComponent
         Cache["InternalComponentText"] = InternalComponent.BigTextLabel.Text + InternalComponent.SmallTextLabel.Text;
         if (InternalComponent.BigTextLabel.Brush != null && invalidator != null)
         {
-            if (InternalComponent.BigTextLabel.Brush is LinearGradientBrush brush)
-            {
-                Cache["TimerColor"] = brush.LinearColors.First().ToArgb();
-            }
-            else
-            {
-                Cache["TimerColor"] = InternalComponent.BigTextLabel.ForeColor.ToArgb();
-            }
+            Cache["TimerColor"] = InternalComponent.BigTextLabel.Brush is LinearGradientBrush brush
+                ? brush.LinearColors[0].ToArgb()
+                : InternalComponent.BigTextLabel.ForeColor.ToArgb();
         }
 
         if (invalidator != null && (Cache.HasChanged || FrameCount > 1))
