@@ -100,7 +100,8 @@ public partial class DetailedTimerSettings : UserControl
 
     public string Comparison { get; set; }
     public string Comparison2 { get; set; }
-    public bool HideComparison { get; set; }
+    public bool HideComparison1 { get; set; }
+    public bool HideComparison2 { get; set; }
     public string TimingMethod { get; set; }
 
     public LayoutMode Mode { get; set; }
@@ -146,7 +147,8 @@ public partial class DetailedTimerSettings : UserControl
 
         Comparison = "Current Comparison";
         Comparison2 = "Best Segments";
-        HideComparison = false;
+        HideComparison1 = false;
+        HideComparison2 = false;
         TimingMethod = "Current Timing Method";
 
         chkShowGradientSegmentTimer.DataBindings.Add("Checked", this, "SegmentTimerShowGradient", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -169,7 +171,8 @@ public partial class DetailedTimerSettings : UserControl
         btnColor2.DataBindings.Add("BackColor", this, "BackgroundColor2", false, DataSourceUpdateMode.OnPropertyChanged);
         cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
         cmbComparison2.DataBindings.Add("SelectedItem", this, "Comparison2", false, DataSourceUpdateMode.OnPropertyChanged);
-        chkHideComparison.DataBindings.Add("Checked", this, "HideComparison", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkHideComparison1.DataBindings.Add("Checked", this, "HideComparison1", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkHideComparison2.DataBindings.Add("Checked", this, "HideComparison2", false, DataSourceUpdateMode.OnPropertyChanged);
         trkDecimalsSize.DataBindings.Add("Value", this, "DecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
         trkSegmentDecimalsSize.DataBindings.Add("Value", this, "SegmentTimerDecimalsSize", false, DataSourceUpdateMode.OnPropertyChanged);
         cmbDigitsFormat.DataBindings.Add("SelectedItem", this, "DigitsFormat", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -221,9 +224,14 @@ public partial class DetailedTimerSettings : UserControl
         label1.Enabled = btnTimerColor.Enabled = chkOverrideTimerColors.Checked;
     }
 
-    private void chkHideComparison_CheckedChanged(object sender, EventArgs e)
+    private void chkHideComparison1_CheckedChanged(object sender, EventArgs e)
     {
-        cmbComparison2.Enabled = label13.Enabled = !chkHideComparison.Checked;
+        cmbComparison.Enabled = label12.Enabled = !chkHideComparison1.Checked;
+    }
+
+    private void chkHideComparison2_CheckedChanged(object sender, EventArgs e)
+    {
+        cmbComparison2.Enabled = label13.Enabled = !chkHideComparison2.Checked;
     }
 
     private void cmbComparison2_SelectedIndexChanged(object sender, EventArgs e)
@@ -303,7 +311,9 @@ public partial class DetailedTimerSettings : UserControl
         BackgroundGradient = SettingsHelper.ParseEnum(element["BackgroundGradient"], DeltasGradientType.Plain);
         Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
         Comparison2 = SettingsHelper.ParseString(element["Comparison2"], "Best Segments");
-        HideComparison = SettingsHelper.ParseBool(element["HideComparison"], false);
+        HideComparison1 = SettingsHelper.ParseBool(element["HideComparison1"], false);
+        // Saved as "HideComparison" for compatibility with layouts from before Comparison 1 could be hidden.
+        HideComparison2 = SettingsHelper.ParseBool(element["HideComparison"], false);
 
         SegmentTimesAccuracy = SettingsHelper.ParseEnum<TimeAccuracy>(element["SegmentTimesAccuracy"]);
         SegmentTimesFormatter.Accuracy = SegmentTimesAccuracy;
@@ -393,7 +403,8 @@ public partial class DetailedTimerSettings : UserControl
         SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient) ^
         SettingsHelper.CreateSetting(document, parent, "Comparison", Comparison) ^
         SettingsHelper.CreateSetting(document, parent, "Comparison2", Comparison2) ^
-        SettingsHelper.CreateSetting(document, parent, "HideComparison", HideComparison) ^
+        SettingsHelper.CreateSetting(document, parent, "HideComparison1", HideComparison1) ^
+        SettingsHelper.CreateSetting(document, parent, "HideComparison", HideComparison2) ^
         SettingsHelper.CreateSetting(document, parent, "TimingMethod", TimingMethod) ^
         SettingsHelper.CreateSetting(document, parent, "DecimalsSize", DecimalsSize) ^
         SettingsHelper.CreateSetting(document, parent, "SegmentTimerDecimalsSize", SegmentTimerDecimalsSize);
@@ -406,7 +417,8 @@ public partial class DetailedTimerSettings : UserControl
 
     private void DetailedTimerSettings_Load(object sender, EventArgs e)
     {
-        chkHideComparison_CheckedChanged(null, null);
+        chkHideComparison1_CheckedChanged(null, null);
+        chkHideComparison2_CheckedChanged(null, null);
         chkOverrideTimerColors_CheckedChanged(null, null);
         chkDisplayIcon_CheckedChanged(null, null);
         chkSplitName_CheckedChanged(null, null);

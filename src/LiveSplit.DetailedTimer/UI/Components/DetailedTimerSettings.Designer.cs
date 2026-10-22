@@ -97,7 +97,8 @@ namespace LiveSplit.UI.Components
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.label12 = new System.Windows.Forms.Label();
             this.cmbComparison = new System.Windows.Forms.ComboBox();
-            this.chkHideComparison = new System.Windows.Forms.CheckBox();
+            this.chkHideComparison1 = new System.Windows.Forms.CheckBox();
+            this.chkHideComparison2 = new System.Windows.Forms.CheckBox();
             this.cmbComparison2 = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -1017,7 +1018,8 @@ namespace LiveSplit.UI.Components
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.81986F));
             this.tableLayoutPanel12.Controls.Add(this.label12, 0, 1);
             this.tableLayoutPanel12.Controls.Add(this.cmbComparison, 1, 1);
-            this.tableLayoutPanel12.Controls.Add(this.chkHideComparison, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.chkHideComparison1, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.chkHideComparison2, 1, 0);
             this.tableLayoutPanel12.Controls.Add(this.cmbComparison2, 1, 2);
             this.tableLayoutPanel12.Controls.Add(this.label13, 0, 2);
             this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1051,18 +1053,31 @@ namespace LiveSplit.UI.Components
             this.cmbComparison.TabIndex = 2;
             this.cmbComparison.SelectedIndexChanged += new System.EventHandler(this.cmbComparison_SelectedIndexChanged);
             // 
-            // chkHideComparison
+            // chkHideComparison1
             // 
-            this.chkHideComparison.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.chkHideComparison.AutoSize = true;
-            this.chkHideComparison.Location = new System.Drawing.Point(7, 6);
-            this.chkHideComparison.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
-            this.chkHideComparison.Name = "chkHideComparison";
-            this.chkHideComparison.Size = new System.Drawing.Size(115, 17);
-            this.chkHideComparison.TabIndex = 0;
-            this.chkHideComparison.Text = "Hide Comparison 2";
-            this.chkHideComparison.UseVisualStyleBackColor = true;
-            this.chkHideComparison.CheckedChanged += new System.EventHandler(this.chkHideComparison_CheckedChanged);
+            this.chkHideComparison1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkHideComparison1.AutoSize = true;
+            this.chkHideComparison1.Location = new System.Drawing.Point(7, 6);
+            this.chkHideComparison1.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkHideComparison1.Name = "chkHideComparison1";
+            this.chkHideComparison1.Size = new System.Drawing.Size(115, 17);
+            this.chkHideComparison1.TabIndex = 0;
+            this.chkHideComparison1.Text = "Hide Comparison 1";
+            this.chkHideComparison1.UseVisualStyleBackColor = true;
+            this.chkHideComparison1.CheckedChanged += new System.EventHandler(this.chkHideComparison1_CheckedChanged);
+            // 
+            // chkHideComparison2
+            // 
+            this.chkHideComparison2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.chkHideComparison2.AutoSize = true;
+            this.chkHideComparison2.Location = new System.Drawing.Point(155, 6);
+            this.chkHideComparison2.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkHideComparison2.Name = "chkHideComparison2";
+            this.chkHideComparison2.Size = new System.Drawing.Size(115, 17);
+            this.chkHideComparison2.TabIndex = 1;
+            this.chkHideComparison2.Text = "Hide Comparison 2";
+            this.chkHideComparison2.UseVisualStyleBackColor = true;
+            this.chkHideComparison2.CheckedChanged += new System.EventHandler(this.chkHideComparison2_CheckedChanged);
             // 
             // cmbComparison2
             // 
@@ -1220,7 +1235,8 @@ namespace LiveSplit.UI.Components
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.ComboBox cmbComparison2;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox chkHideComparison;
+        private System.Windows.Forms.CheckBox chkHideComparison1;
+        private System.Windows.Forms.CheckBox chkHideComparison2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cmbDigitsFormat;
