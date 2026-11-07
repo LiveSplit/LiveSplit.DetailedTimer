@@ -29,7 +29,8 @@ public class DetailedTimer : IComponent
     public string Comparison2 { get; set; }
     public string ComparisonName { get; set; }
     public string ComparisonName2 { get; set; }
-    public bool HideComparison { get; set; }
+    public bool HideComparison1 { get; set; }
+    public bool HideComparison2 { get; set; }
     protected int FrameCount { get; set; }
 
     protected int IconWidth { get; set; }
@@ -150,47 +151,53 @@ public class DetailedTimer : IComponent
         {
             var labelsFont = new Font(Settings.SegmentLabelsFont.FontFamily, Settings.SegmentLabelsFont.Size, Settings.SegmentLabelsFont.Style, Settings.SegmentLabelsFont.Unit);
             var timesFont = new Font(Settings.SegmentTimesFont.FontFamily, Settings.SegmentTimesFont.Size, Settings.SegmentTimesFont.Style, Settings.SegmentTimesFont.Unit);
+            // The visible comparisons share the space next to the segment timer equally.
+            int visibleComparisons = (HideComparison1 ? 0 : 1) + (HideComparison2 ? 0 : 1);
+            float comparisonsY = height * ((100f - Settings.SegmentTimerSizeRatio) / 100f);
+            float comparisonHeight = height * (Settings.SegmentTimerSizeRatio / 100f) / Math.Max(visibleComparisons, 1);
+            float comparison2Y = HideComparison1 ? comparisonsY : comparisonsY + comparisonHeight;
+
             LabelSegment.Font = labelsFont;
             LabelSegment.X = 5 + IconWidth;
-            LabelSegment.Y = height * ((100f - Settings.SegmentTimerSizeRatio) / 100f);
+            LabelSegment.Y = comparisonsY;
             LabelSegment.Width = width - SegmentTimer.ActualWidth - 5 - IconWidth;
-            LabelSegment.Height = height * (Settings.SegmentTimerSizeRatio / 200f) * (!HideComparison ? 1f : 2f);
+            LabelSegment.Height = comparisonHeight;
             LabelSegment.HorizontalAlignment = StringAlignment.Near;
             LabelSegment.VerticalAlignment = StringAlignment.Center;
             LabelSegment.ForeColor = Settings.SegmentLabelsColor;
             LabelSegment.HasShadow = state.LayoutSettings.DropShadows;
             LabelSegment.ShadowColor = state.LayoutSettings.ShadowsColor;
             LabelSegment.OutlineColor = state.LayoutSettings.TextOutlineColor;
-            if (Comparison != "None")
+            if (!HideComparison1)
             {
                 LabelSegment.Draw(g);
             }
 
             LabelBest.Font = labelsFont;
             LabelBest.X = 5 + IconWidth;
-            LabelBest.Y = height * ((100f - (Settings.SegmentTimerSizeRatio / 2f)) / 100f);
+            LabelBest.Y = comparison2Y;
             LabelBest.Width = width - SegmentTimer.ActualWidth - 5 - IconWidth;
-            LabelBest.Height = height * (Settings.SegmentTimerSizeRatio / 200f);
+            LabelBest.Height = comparisonHeight;
             LabelBest.HorizontalAlignment = StringAlignment.Near;
             LabelBest.VerticalAlignment = StringAlignment.Center;
             LabelBest.ForeColor = Settings.SegmentLabelsColor;
             LabelBest.HasShadow = state.LayoutSettings.DropShadows;
             LabelBest.ShadowColor = state.LayoutSettings.ShadowsColor;
             LabelBest.OutlineColor = state.LayoutSettings.TextOutlineColor;
-            if (!HideComparison)
+            if (!HideComparison2)
             {
                 LabelBest.Draw(g);
             }
 
-            float offset = Math.Max(LabelSegment.ActualWidth, HideComparison ? 0 : LabelBest.ActualWidth) + 10;
+            float offset = Math.Max(HideComparison1 ? 0 : LabelSegment.ActualWidth, HideComparison2 ? 0 : LabelBest.ActualWidth) + 10;
 
-            if (Comparison != "None")
+            if (!HideComparison1)
             {
                 SegmentTime.Font = timesFont;
                 SegmentTime.X = offset + IconWidth;
-                SegmentTime.Y = height * ((100f - Settings.SegmentTimerSizeRatio) / 100f);
+                SegmentTime.Y = comparisonsY;
                 SegmentTime.Width = width - SegmentTimer.ActualWidth - offset - IconWidth;
-                SegmentTime.Height = height * (Settings.SegmentTimerSizeRatio / 200f) * (!HideComparison ? 1f : 2f);
+                SegmentTime.Height = comparisonHeight;
                 SegmentTime.HorizontalAlignment = StringAlignment.Near;
                 SegmentTime.VerticalAlignment = StringAlignment.Center;
                 SegmentTime.ForeColor = Settings.SegmentTimesColor;
@@ -201,13 +208,13 @@ public class DetailedTimer : IComponent
                 SegmentTime.Draw(g);
             }
 
-            if (!HideComparison)
+            if (!HideComparison2)
             {
                 BestSegmentTime.Font = timesFont;
                 BestSegmentTime.X = offset + IconWidth;
-                BestSegmentTime.Y = height * ((100f - (Settings.SegmentTimerSizeRatio / 2f)) / 100f);
+                BestSegmentTime.Y = comparison2Y;
                 BestSegmentTime.Width = width - SegmentTimer.ActualWidth - offset - IconWidth;
-                BestSegmentTime.Height = height * (Settings.SegmentTimerSizeRatio / 200f);
+                BestSegmentTime.Height = comparisonHeight;
                 BestSegmentTime.HorizontalAlignment = StringAlignment.Near;
                 BestSegmentTime.VerticalAlignment = StringAlignment.Center;
                 BestSegmentTime.ForeColor = Settings.SegmentTimesColor;
@@ -296,80 +303,27 @@ public class DetailedTimer : IComponent
 
         if (state.CurrentSplitIndex >= 0)
         {
-            Comparison = Settings.Comparison == "Current Comparison" ? state.CurrentComparison : Settings.Comparison;
-            Comparison2 = Settings.Comparison2 == "Current Comparison" ? state.CurrentComparison : Settings.Comparison2;
-            HideComparison = Settings.HideComparison;
-
-            if (HideComparison || !state.Run.Comparisons.Contains(Comparison2) || Comparison2 == "None")
-            {
-                HideComparison = true;
-                if (!state.Run.Comparisons.Contains(Comparison) || Comparison == "None")
-                {
-                    Comparison = state.CurrentComparison;
-                }
-            }
-            else if (!state.Run.Comparisons.Contains(Comparison) || Comparison == "None")
-            {
-                HideComparison = true;
-                Comparison = Comparison2;
-            }
-            else if (Comparison == Comparison2)
-            {
-                HideComparison = true;
-            }
+            Comparison = ResolveComparison(state, Settings.Comparison);
+            Comparison2 = ResolveComparison(state, Settings.Comparison2);
+            HideComparison1 = Settings.HideComparison1 || Comparison == NoneComparisonGenerator.ComparisonName;
+            HideComparison2 = Settings.HideComparison2 || Comparison2 == NoneComparisonGenerator.ComparisonName
+                || (!HideComparison1 && Comparison == Comparison2);
 
             ComparisonName = CompositeComparisons.GetShortComparisonName(Comparison);
             ComparisonName2 = CompositeComparisons.GetShortComparisonName(Comparison2);
-
-            TimeSpan? segmentTime = null;
-
-            if (Comparison == BestSegmentsComparisonGenerator.ComparisonName)
-            {
-                segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
-            }
-            else
-            {
-                if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
-                {
-                    segmentTime = state.Run[0].Comparisons[Comparison][timingMethod];
-                }
-                else if (state.CurrentSplitIndex > 0)
-                {
-                    segmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison][timingMethod]
-                        - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison][timingMethod];
-                }
-            }
 
             LabelSegment.Text = ComparisonName + ":";
 
             LabelBest.Text = ComparisonName2 + ":";
 
-            if (Comparison != "None")
+            if (!HideComparison1)
             {
-                SegmentTime.Text = formatter.Format(segmentTime);
+                SegmentTime.Text = formatter.Format(GetSegmentTime(state, Comparison, timingMethod, lastSplitOffset));
             }
 
-            if (!HideComparison)
+            if (!HideComparison2)
             {
-                TimeSpan? bestSegmentTime = null;
-                if (Comparison2 == BestSegmentsComparisonGenerator.ComparisonName)
-                {
-                    bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
-                }
-                else
-                {
-                    if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
-                    {
-                        bestSegmentTime = state.Run[0].Comparisons[Comparison2][timingMethod];
-                    }
-                    else if (state.CurrentSplitIndex > 0)
-                    {
-                        bestSegmentTime = state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[Comparison2][timingMethod]
-                            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[Comparison2][timingMethod];
-                    }
-                }
-
-                BestSegmentTime.Text = formatter.Format(bestSegmentTime);
+                BestSegmentTime.Text = formatter.Format(GetSegmentTime(state, Comparison2, timingMethod, lastSplitOffset));
             }
 
             if (state.CurrentSplitIndex >= 0)
@@ -413,6 +367,8 @@ public class DetailedTimer : IComponent
         Cache["LabelBest"] = LabelBest.Text;
         Cache["SegmentTime"] = SegmentTime.Text;
         Cache["BestSegmentTime"] = BestSegmentTime.Text;
+        Cache["HideComparison1"] = HideComparison1;
+        Cache["HideComparison2"] = HideComparison2;
         Cache["SegmentTimerText"] = SegmentTimer.BigTextLabel.Text + SegmentTimer.SmallTextLabel.Text;
         Cache["InternalComponentText"] = InternalComponent.BigTextLabel.Text + InternalComponent.SmallTextLabel.Text;
         if (InternalComponent.BigTextLabel.Brush != null && invalidator != null)
@@ -426,6 +382,32 @@ public class DetailedTimer : IComponent
         {
             invalidator.Invalidate(0, 0, width, height);
         }
+    }
+
+    private static string ResolveComparison(LiveSplitState state, string comparison)
+    {
+        // "None" can't be selected in the settings, so it's treated as a missing comparison.
+        return comparison == "Current Comparison"
+            || comparison == NoneComparisonGenerator.ComparisonName
+            || !state.Run.Comparisons.Contains(comparison)
+            ? state.CurrentComparison
+            : comparison;
+    }
+
+    private static TimeSpan? GetSegmentTime(LiveSplitState state, string comparison, TimingMethod timingMethod, int lastSplitOffset)
+    {
+        if (comparison == BestSegmentsComparisonGenerator.ComparisonName)
+        {
+            return state.Run[state.CurrentSplitIndex + lastSplitOffset].BestSegmentTime[timingMethod];
+        }
+
+        if (state.CurrentSplitIndex == 0 || (state.CurrentSplitIndex == 1 && lastSplitOffset == -1))
+        {
+            return state.Run[0].Comparisons[comparison][timingMethod];
+        }
+
+        return state.Run[state.CurrentSplitIndex + lastSplitOffset].Comparisons[comparison][timingMethod]
+            - state.Run[state.CurrentSplitIndex - 1 + lastSplitOffset].Comparisons[comparison][timingMethod];
     }
 
     public void Dispose()
